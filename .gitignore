@@ -26,62 +26,62 @@ hs_err_pid*
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
 ### Eclipse ###
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-.recommenders
+Backend/.metadata
+Backend/bin/
+Backend/tmp/
+Backend/*.tmp
+Backend/*.bak
+Backend/*.swp
+Backend/*~.nib
+Backend/local.properties
+Backend/.settings/
+Backend/.loadpath
+Backend/.recommenders
 
 # External tool builders
-.externalToolBuilders/
+Backend/.externalToolBuilders/
 
 # Locally stored "Eclipse launch configurations"
-*.launch
+Backend/*.launch
 
 # PyDev specific (Python IDE for Eclipse)
-*.pydevproject
+Backend/*.pydevproject
 
 # CDT-specific (C/C++ Development Tooling)
-.cproject
+Backend/.cproject
 
 # CDT- autotools
-.autotools
+Backend/.autotools
 
 # Java annotation processor (APT)
-.factorypath
+Backend/.factorypath
 
 # PDT-specific (PHP Development Tools)
-.buildpath
+Backend/.buildpath
 
 # sbteclipse plugin
-.target
+Backend/.target
 
 # Tern plugin
-.tern-project
+Backend/.tern-project
 
 # TeXlipse plugin
-.texlipse
+Backend/.texlipse
 
 # STS (Spring Tool Suite)
-.springBeans
+Backend/.springBeans
 
 # Code Recommenders
-.recommenders/
+Backend/.recommenders/
 
 # Annotation Processing
-.apt_generated/
-.apt_generated_test/
+Backend/.apt_generated/
+Backend/.apt_generated_test/
 
 # Scala IDE specific (Scala & Java development for Eclipse)
-.cache-main
-.scala_dependencies
-.worksheet
+Backend/.cache-main
+Backend/.scala_dependencies
+Backend/.worksheet
 
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
@@ -89,6 +89,6 @@ local.properties
 
 ### Eclipse Patch ###
 # Spring Boot Tooling
-.sts4-cache/
+Backend/.sts4-cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
