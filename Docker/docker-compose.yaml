@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mysql_credentials:
+    image: 'mysql:8'
+    container_name: mysql_credentials
+    platform: linux/x86_64
+    restart: unless-stopped
+    ports:
+      - '3307:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: America/Santiago
+    volumes:
+      - './credentials:/var/lib/docker/volumes/crentials'
+    networks:
+      net_interna:
+        aliases:
+          - mysql_api_net_credentials
+
+volumes:
+  credenciales: {}
+
+networks:
+  net_interna:
+    name: mysql_api_net
+    driver: bridge
+    ipam:
+      driver: default

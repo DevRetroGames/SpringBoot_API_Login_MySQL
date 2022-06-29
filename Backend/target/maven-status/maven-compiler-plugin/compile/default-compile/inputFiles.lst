@@ -1,0 +1,6 @@
+/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/model/Roles.java
+/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/controller/RolesController.java
+/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/controller/InformacionController.java
+/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/ApiCredencialesApplication.java
+/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/repository/IRolesRepository.java
+/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/controller/IdentificacionController.java

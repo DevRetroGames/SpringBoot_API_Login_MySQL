@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS CREDENTIALS.ROLES (  
+    
+    -- uuid
+    id VARCHAR( 36 ) DEFAULT ( UUID() ) PRIMARY KEY ,
+    
+    -- rol name
+    name VARCHAR( 255 ) NOT NULL ,
+
+    -- 0: off
+    -- 1: on
+    status BOOLEAN DEFAULT 0 ,
+
+    -- dates
+    create_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+	update_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;
