@@ -4,7 +4,7 @@ REST API Login with MySQL
 > Este repositorio aun se encuentra en desarrollo, por lo cual, cualquier uso es responsabilidad de quien y/o quienes decidan hacer uso de este.
 
 ## Descripción.
-API REST Login para la gestion de roles y acceso al sistema.
+API REST Login para la gestión de roles y acceso al sistema.
 
 Para el desarrollo del backend se utilizo el IDE Eclipse, junto con Spring Tools 4 y MoreUnit 3.3.0(Mockito) para realizar los test.
 
