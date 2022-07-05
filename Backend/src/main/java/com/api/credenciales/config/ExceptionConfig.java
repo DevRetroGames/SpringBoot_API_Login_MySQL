@@ -2,11 +2,7 @@ package com.api.credenciales.config;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -28,7 +24,7 @@ import com.api.credenciales.exceptions.NotFoundException;
 @ControllerAdvice( annotations = RestController.class )
 public class ExceptionConfig {
 
-	@ExceptionHandler( NotFoundException.class )
+	@ExceptionHandler({ NotFoundException.class })
 	public ResponseEntity<?> notFoundException( Exception e ) {
 		
 		String message = e.getMessage() ;
@@ -75,16 +71,17 @@ public class ExceptionConfig {
 	    return map ;
 	    
 	}
-	
+	/*
 	@ExceptionHandler({ 
 		InterruptedException.class ,
 		ExecutionException.class ,
 		TimeoutException.class ,
 		CompletionException.class ,
+		NoSuchElementException.class ,
 		InvalidDataAccessApiUsageException.class
 	})
 	@ResponseStatus( value = HttpStatus.INTERNAL_SERVER_ERROR )
-	public @ResponseBody Map<String, Object> Async( Exception ex ) {
+	public @ResponseBody Map< String , Object > Async( Exception ex ) {
 		
 		Map< String , Object > resp = new HashMap<>() ;
 		
@@ -93,6 +90,6 @@ public class ExceptionConfig {
 		
 		return resp ;
 		
-	}
+	}*/
 	
 }

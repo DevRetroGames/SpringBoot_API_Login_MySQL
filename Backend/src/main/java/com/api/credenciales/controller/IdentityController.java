@@ -55,8 +55,9 @@ public class IdentityController {
 	@ResponseStatus( HttpStatus.CREATED )
 	public IdentityDTO createIdentity( 
 			@Valid @RequestBody IdentityDTO identityDTO , 
-			@RequestParam UUID informationID , @RequestParam UUID roleID ) {
-		return service.createIdentity( identityDTO , informationID , roleID ) ;
+			@RequestParam UUID informationID , 
+			@RequestParam List< UUID > listRoleID ) {
+		return service.createIdentity( identityDTO , informationID , listRoleID ) ;
 	}
 	
 	
@@ -65,10 +66,9 @@ public class IdentityController {
 	@ResponseStatus( HttpStatus.OK )
 	public IdentityDTO updateIdentity( 
 			@RequestParam UUID identityID , 
-			@Valid @RequestBody IdentityDTO identityDTO , 
-			@RequestParam UUID informationID , 
-			@RequestParam UUID roleID ) {		
-		return this.service.updateIdentity( identityID , identityDTO , informationID , roleID ) ;		
+			@Valid @RequestBody IdentityDTO identityDTO ,
+			@RequestParam List< UUID > listRoleID ) {		
+		return this.service.updateIdentity( identityID , identityDTO , listRoleID ) ;		
 	}
 	
 	

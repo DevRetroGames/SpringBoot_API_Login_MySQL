@@ -1,8 +1,10 @@
 package com.api.credenciales.serviceImpl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,9 +53,7 @@ public class IdentityServiceImpl implements IIdentityService {
 	
 	@Override
 	public List<IdentityDTO> getAllIdentitys() {
-		
 		return this.findAll.getAllIdentitys().join() ;
-		
 	}
 
 	
@@ -71,15 +71,31 @@ public class IdentityServiceImpl implements IIdentityService {
 	
 	
 	@Override
-	public IdentityDTO createIdentity( IdentityDTO identityDTO , UUID informationID , UUID roleID ) {
+	public IdentityDTO createIdentity( 
+			IdentityDTO identityDTO , 
+			UUID informationID , 
+			List< UUID > listRoleID ) {
 		
-		CompletableFuture< Information > information = this.findByIdHelper.getInformationById( informationID ) ;		
-		CompletableFuture< Role > role = this.findByIdHelper.getRoleById( roleID ) ;
+		CompletableFuture< Information > information = 
+				this.findByIdHelper.getInformationById( informationID ) ;	
 		
-		InformationDTO informationDTO = this.mapperUtil.informationEntityToInformationDTO( information.join() ) ;
-		RoleDTO roleDTO = this.mapperUtil.roleEntityToRoleDTO( role.join() ) ;
+		Set< CompletableFuture< Role > > listRole = 
+				listRoleID
+				.stream()
+				.map( role -> this.findByIdHelper.getRoleById( role ) )
+				.collect( Collectors.toSet() ) ;
 		
-		return this.createHelper.createIdentity( identityDTO , informationDTO , roleDTO ).join() ;
+		InformationDTO informationDTO = 
+				this.mapperUtil.informationEntityToInformationDTO( information.join() ) ;
+		
+		Set< RoleDTO > listRoleDTO = 
+				listRole.
+				stream()
+				.map( role -> this.mapperUtil.roleEntityToRoleDTO( role.join() ) )
+				.collect( Collectors.toSet() ) ;
+		
+		return this.createHelper.createIdentity( 
+				identityDTO , informationDTO , listRoleDTO ).join() ;
 		
 	}
 
@@ -87,16 +103,25 @@ public class IdentityServiceImpl implements IIdentityService {
 	
 	@Override
 	public IdentityDTO updateIdentity( 
-			UUID identityID , IdentityDTO identityDTO , UUID informationID , UUID roleID ) {
+			UUID identityID , IdentityDTO identityDTO , List< UUID > listRoleID ) {
 		
 		CompletableFuture< Identity > identity = 
 				this.findByIdHelper.getIdentityById( identityID ) ;
-		CompletableFuture< Information > information = 
-				this.findByIdHelper.getInformationById( informationID ) ;
-		CompletableFuture< Role > role = this.findByIdHelper.getRoleById( roleID ) ;
+		
+		List< CompletableFuture< Role > > listRole = 
+				listRoleID
+				.stream()
+				.map( role -> this.findByIdHelper.getRoleById( role ) )
+				.collect( Collectors.toList() ) ;
+		
+		List< RoleDTO > listRoleDTO = 
+				listRole
+				.stream()
+				.map( role -> this.mapperUtil.roleEntityToRoleDTO( role.join() ) )
+				.collect( Collectors.toList() ) ;
 		
 		return this.updateHelper.updateIdentity( 
-				identity.join() , identityDTO , information.join() , role.join() ).join() ;
+				identity.join() , identityDTO , listRoleDTO ).join() ;
 		
 	}
 	
@@ -105,7 +130,8 @@ public class IdentityServiceImpl implements IIdentityService {
 	@Override
 	public void deleteIdentity( UUID identityID ) {
 		
-		CompletableFuture< Identity > identity = this.findByIdHelper.getIdentityById( identityID ) ;
+		CompletableFuture< Identity > identity = 
+				this.findByIdHelper.getIdentityById( identityID ) ;
 		
 		this.iIdentityRepository.delete( identity.join() ) ;
 		

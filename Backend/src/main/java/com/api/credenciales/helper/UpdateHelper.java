@@ -1,6 +1,8 @@
 package com.api.credenciales.helper;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -79,15 +81,19 @@ public class UpdateHelper {
 	
 	@Async( "asyncExecutor" )
 	public CompletableFuture< IdentityDTO > updateIdentity( 
-			Identity identity , IdentityDTO identityDTO , Information information , Role role ) {
+			Identity identity , IdentityDTO identityDTO , List< RoleDTO > listRoleDTO ) {
 		
 		Identity identityEntity = identity ; 
-		IdentityDTO identityDTOCopy = identityDTO ; 
-		Information informationEntity = information ; 
-		Role roleEntity = role ;
 		
-		identityEntity.setInformation( informationEntity ) ;
-		identityEntity.setRole( roleEntity ) ;
+		IdentityDTO identityDTOCopy = identityDTO ;
+		
+		List< Role > listRoleEntity = 
+				listRoleDTO
+				.stream()
+				.map( this.mapperUtil::roleDTOToRoleEntity )
+				.collect( Collectors.toList() ) ; 
+		
+		identityEntity.setListRoles( listRoleEntity ) ;
 		identityEntity.setUsername( identityDTOCopy.getUsername() ) ;
 		identityEntity.setKeyword( identityDTOCopy.getKeyword() ) ;
 		identityEntity.setStatus( identityDTOCopy.isStatus() ) ;

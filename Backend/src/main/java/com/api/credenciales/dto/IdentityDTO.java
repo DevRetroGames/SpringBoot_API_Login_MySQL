@@ -1,5 +1,7 @@
 package com.api.credenciales.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.validation.constraints.NotBlank;
@@ -15,7 +17,7 @@ public class IdentityDTO {
 	
 	private InformationDTO information ;
 	
-	private RoleDTO role ;
+	private List< RoleDTO > listRoles = new ArrayList<>() ;
 	
 	@NotBlank( message = "Username required." )
 	@Size( min = 9 , max = 50 , message = "Invalid username length." )

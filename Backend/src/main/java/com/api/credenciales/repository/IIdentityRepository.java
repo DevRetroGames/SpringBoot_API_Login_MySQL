@@ -10,4 +10,6 @@ import com.api.credenciales.model.Identity;
 @Repository
 public interface IIdentityRepository extends JpaRepository< Identity , UUID > {
 	
+	
+	
 }

@@ -36,10 +36,11 @@ public class FindAll {
 	@Async( "asyncExecutor" )
 	public CompletableFuture< List<RoleDTO> > getAllRoles() {
 		
-		List<RoleDTO> listRoles = this.iRoleRepository
+		List<RoleDTO> listRoles = 
+				this.iRoleRepository
 				.findAll()
 				.stream()
-				.map( mapperUtil::roleEntityToRoleDTO )
+				.map( this.mapperUtil::roleEntityToRoleDTO )
 				.collect( Collectors.toList() ) ;
 		
 		return CompletableFuture.completedFuture( listRoles ) ;
@@ -50,10 +51,11 @@ public class FindAll {
 	@Async( "asyncExecutor" )
 	public CompletableFuture< List<InformationDTO> > getAllInformations() {
 		
-		List<InformationDTO> listInformations = this.iInformationRepository
+		List<InformationDTO> listInformations = 
+				this.iInformationRepository
 				.findAll()
 				.stream()
-				.map( mapperUtil::informationEntityToInformationDTO )
+				.map( this.mapperUtil::informationEntityToInformationDTO )
 				.collect( Collectors.toList() ) ;
 		
 		return CompletableFuture.completedFuture( listInformations ) ;
@@ -62,14 +64,16 @@ public class FindAll {
 	
 	
 	@Async( "asyncExecutor" )
-	public CompletableFuture< List<IdentityDTO> > getAllIdentitys() {
+	public CompletableFuture< List< IdentityDTO > > getAllIdentitys() {
 		
-		List<IdentityDTO> listIdentitys = this.iIdentityRepository.findAll()
-				.stream()
-				.map( mapperUtil::identityEntityToIdentityDTO )
-				.collect( Collectors.toList() ) ;
+		List< IdentityDTO > listIndetitysDTO = 
+				this.iIdentityRepository
+					.findAll()
+					.stream()
+					.map( this.mapperUtil::identityEntityToIdentityDTO )
+					.collect( Collectors.toList() ) ;
 		
-		return CompletableFuture.completedFuture( listIdentitys ) ;
+		return CompletableFuture.completedFuture( listIndetitysDTO ) ;
 		
 	}
 	

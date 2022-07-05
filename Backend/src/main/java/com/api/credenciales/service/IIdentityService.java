@@ -42,7 +42,8 @@ public interface IIdentityService {
 	 * @param roleID
 	 * @return IdentityDTO
 	 */
-	public IdentityDTO createIdentity( IdentityDTO identityDTO , UUID informationID , UUID roleID ) ;
+	public IdentityDTO createIdentity( 
+			IdentityDTO identityDTO , UUID informationID , List< UUID > listRoleID ) ;
 	
 	
 	
@@ -56,7 +57,8 @@ public interface IIdentityService {
 	 * @param roleID
 	 * @return IdentityDTO
 	 */
-	public IdentityDTO updateIdentity( UUID identityID , IdentityDTO identityDTO , UUID informationID , UUID roleID ) ;
+	public IdentityDTO updateIdentity( 
+			UUID identityID , IdentityDTO identityDTO , List< UUID > listRoleID ) ;
 	
 	
 	

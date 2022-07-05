@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS.IDENTITYS (
     information_id VARCHAR( 36 ) ,
 
     -- fk of roles table
-    role_id VARCHAR( 36 ) ,
+    -- role_id VARCHAR( 36 ) ,
 
     -- access credentials
     username VARCHAR( 255 ) NOT NULL UNIQUE ,
@@ -24,11 +24,11 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS.IDENTITYS (
     -- fk to informations table
     FOREIGN KEY ( information_id ) REFERENCES INFORMATIONS( id )
     ON DELETE RESTRICT
-    ON UPDATE CASCADE ,
+    ON UPDATE CASCADE
 
     -- fk to roles table
-    FOREIGN KEY ( role_id ) REFERENCES ROLES( id )
-    ON DELETE SET NULL 
-    ON UPDATE CASCADE
+    -- FOREIGN KEY ( role_id ) REFERENCES ROLES( id )
+    -- ON DELETE SET NULL 
+    -- ON UPDATE CASCADE
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ;

@@ -1,6 +1,10 @@
 package com.api.credenciales.helper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -18,8 +22,11 @@ import com.api.credenciales.repository.IInformationRepository;
 import com.api.credenciales.repository.IRoleRepository;
 import com.api.credenciales.util.MapperUtil;
 
+import lombok.extern.log4j.Log4j2;
+
 @Component
 @Transactional
+@Log4j2
 public class CreateHelper {
 
 	
@@ -67,17 +74,33 @@ public class CreateHelper {
 	
 	@Async( "asyncExecutor" )
 	public CompletableFuture< IdentityDTO > createIdentity( 
-			IdentityDTO identityDTO , InformationDTO informationDTO , RoleDTO roleDTO ) {
+			IdentityDTO identityDTO , 
+			InformationDTO informationDTO , 
+			Set< RoleDTO > listRoleDTO ) {
 		
-		Identity identityEntity = this.mapperUtil.identityDTOToIdentityEntity( identityDTO ) ;
-		Information informationEntity = this.mapperUtil.informationDTOToInformationEntity( informationDTO ) ;
-		Role roleEntity = this.mapperUtil.roleDTOToRoleEntity( roleDTO ) ;
+		Identity identityEntity = 
+				this.mapperUtil.identityDTOToIdentityEntity( identityDTO ) ;
+		
+		Information informationEntity = 
+				this.mapperUtil.informationDTOToInformationEntity( informationDTO ) ;
+		
+		List< Role > listRoleEntity = new ArrayList<>() ;
+		listRoleEntity
+			.addAll( 
+				listRoleDTO
+				.stream()
+				.map( role -> this.mapperUtil.roleDTOToRoleEntity( role ) )
+				.collect( Collectors.toList() ) 
+			) ;
 		
 		identityEntity.setInformation( informationEntity ) ;
-		identityEntity.setRole( roleEntity ) ;
+		identityEntity.setListRoles( listRoleEntity ) ;
 		
 		Identity identitySave = this.iIdentityRepository.save( identityEntity ) ;
 		IdentityDTO identitySaveDTO = this.mapperUtil.identityEntityToIdentityDTO( identitySave ) ;
+		
+		log.info( "entity: " + identitySave ) ;
+		log.info( "entityDTO: " + identitySaveDTO ) ;
 		
 		return CompletableFuture.completedFuture( identitySaveDTO ) ;
 		

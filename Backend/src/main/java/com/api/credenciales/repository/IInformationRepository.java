@@ -1,5 +1,6 @@
 package com.api.credenciales.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +10,7 @@ import com.api.credenciales.model.Information;
 
 @Repository
 public interface IInformationRepository extends JpaRepository< Information , UUID > {
+	
+	Optional< Information > findByEmail( String email ) ;
 	
 }

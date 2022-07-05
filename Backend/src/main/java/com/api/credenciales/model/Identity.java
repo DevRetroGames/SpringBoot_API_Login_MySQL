@@ -1,14 +1,19 @@
 package com.api.credenciales.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -40,14 +45,18 @@ public class Identity {
 	private UUID id ;
 	
 	// foreign key of the table information
-	@OneToOne( cascade = { CascadeType.MERGE , CascadeType.REMOVE } )
+	@OneToOne( cascade = { CascadeType.MERGE , CascadeType.REMOVE } , fetch = FetchType.EAGER )
 	@JoinColumn( name = "information_id" , referencedColumnName = "id" )
 	private Information information ;
 	
 	// foreign key of the table roles
-	@OneToOne( cascade = CascadeType.REFRESH )
-	@JoinColumn( name = "role_id" , referencedColumnName = "id" )
-	private Role role ;
+    @ManyToMany( cascade = { CascadeType.MERGE , CascadeType.REMOVE } , fetch=FetchType.EAGER )
+    @JoinTable(
+		name = "IDENTITYS_ROLES" ,
+        joinColumns = @JoinColumn( name = "identity_id" , referencedColumnName="id" ) ,
+        inverseJoinColumns = @JoinColumn( name = "role_id" , referencedColumnName="id" )
+    )
+	private List< Role > listRoles = new ArrayList<>() ;
 	
 	@Column( name = "username" )
 	private String username ;

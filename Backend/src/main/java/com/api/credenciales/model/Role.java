@@ -1,6 +1,7 @@
 package com.api.credenciales.model;
 
 import java.util.Date;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -9,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,7 +54,7 @@ public class Role {
 	@Column( name = "update_at" , insertable = false, updatable = false )
 	private Date updateAt ;
 	
-	@OneToOne( mappedBy = "role" , fetch = FetchType.LAZY , cascade = CascadeType.REFRESH )
-	private Identity identity ;
+	@ManyToMany( mappedBy = "listRoles" , cascade = { CascadeType.MERGE , CascadeType.REMOVE } , fetch=FetchType.EAGER )
+	private Set< Identity > identity ;
 	
 }
