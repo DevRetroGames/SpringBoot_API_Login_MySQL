@@ -5,6 +5,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -34,37 +37,38 @@ public class FindAll {
 	
 	
 	@Async( "asyncExecutor" )
-	public CompletableFuture< List<RoleDTO> > getAllRoles() {
+	public CompletableFuture< Page< RoleDTO > > getAllRoles( PageRequest pageRequest ) {
 		
-		List<RoleDTO> listRoles = 
-				this.iRoleRepository
-				.findAll()
-				.stream()
-				.map( this.mapperUtil::roleEntityToRoleDTO )
-				.collect( Collectors.toList() ) ;
+	  List< RoleDTO > listRoles = 
+		    this.iRoleRepository
+		      .findAll( pageRequest )
+		      .stream()
+	        .map( this.mapperUtil::roleEntityToRoleDTO )
+	        .collect( Collectors.toList() )
+		      ;
 		
-		return CompletableFuture.completedFuture( listRoles ) ;
+		return CompletableFuture.completedFuture( new PageImpl<>( listRoles ) ) ;
 		
 	}
 	
 	
 	@Async( "asyncExecutor" )
-	public CompletableFuture< List<InformationDTO> > getAllInformations() {
+	public CompletableFuture< Page< InformationDTO > > getAllInformations( PageRequest pageRequest ) {
 		
-		List<InformationDTO> listInformations = 
+		List< InformationDTO > listInformations = 
 				this.iInformationRepository
 				.findAll()
 				.stream()
 				.map( this.mapperUtil::informationEntityToInformationDTO )
 				.collect( Collectors.toList() ) ;
 		
-		return CompletableFuture.completedFuture( listInformations ) ;
+		return CompletableFuture.completedFuture( new PageImpl<>( listInformations ) ) ;
 		
 	}
 	
 	
 	@Async( "asyncExecutor" )
-	public CompletableFuture< List< IdentityDTO > > getAllIdentitys() {
+	public CompletableFuture< Page< IdentityDTO > > getAllIdentitys( PageRequest pageRequest ) {
 		
 		List< IdentityDTO > listIndetitysDTO = 
 				this.iIdentityRepository
@@ -73,7 +77,7 @@ public class FindAll {
 					.map( this.mapperUtil::identityEntityToIdentityDTO )
 					.collect( Collectors.toList() ) ;
 		
-		return CompletableFuture.completedFuture( listIndetitysDTO ) ;
+		return CompletableFuture.completedFuture( new PageImpl<>( listIndetitysDTO ) ) ;
 		
 	}
 	

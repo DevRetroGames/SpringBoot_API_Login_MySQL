@@ -1,15 +1,17 @@
 package com.api.credenciales.serviceImpl;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.api.credenciales.dto.InformationDTO;
+import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.helper.CreateHelper;
 import com.api.credenciales.helper.FindAll;
 import com.api.credenciales.helper.FindByIdHelper;
@@ -46,9 +48,15 @@ public class InformationServiceImpl implements IInformationService {
 	
 	
 	@Override
-	public List<InformationDTO> getAllInformations() {
+	public Page<InformationDTO> getAllInformations( PageDTO pageDTO ) {
+	  
+	  PageRequest pageRequest = 
+        PageRequest.of( 
+            pageDTO.getPage() , 
+            pageDTO.getQuantityRecords() 
+          ) ;
 		
-		return this.findAll.getAllInformations().join() ;
+		return this.findAll.getAllInformations( pageRequest ).join() ;
 		
 	}
 

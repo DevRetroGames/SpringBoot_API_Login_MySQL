@@ -8,11 +8,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.api.credenciales.dto.IdentityDTO;
 import com.api.credenciales.dto.InformationDTO;
+import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.dto.RoleDTO;
 import com.api.credenciales.helper.CreateHelper;
 import com.api.credenciales.helper.FindAll;
@@ -52,8 +55,16 @@ public class IdentityServiceImpl implements IIdentityService {
 	
 	
 	@Override
-	public List<IdentityDTO> getAllIdentitys() {
-		return this.findAll.getAllIdentitys().join() ;
+	public Page<IdentityDTO> getAllIdentitys( PageDTO pageDTO ) {
+	  
+	  PageRequest pageRequest = 
+        PageRequest.of( 
+            pageDTO.getPage() , 
+            pageDTO.getQuantityRecords() 
+          ) ;
+	  
+		return this.findAll.getAllIdentitys( pageRequest ).join() ;
+		
 	}
 
 	

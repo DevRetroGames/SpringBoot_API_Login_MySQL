@@ -1,5 +1,6 @@
 package com.api.credenciales.repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,7 @@ import com.api.credenciales.model.Identity;
 
 @Repository
 public interface IIdentityRepository extends JpaRepository< Identity , UUID > {
-	
-	
-	
+  
+  Optional< Identity > findByUsername( String username ) ;
+  
 }

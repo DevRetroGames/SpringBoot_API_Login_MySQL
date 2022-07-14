@@ -1,10 +1,11 @@
 package com.api.credenciales.service;
 
-import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.dto.RoleDTO;
 
 @Service
@@ -16,7 +17,7 @@ public interface IRoleService {
 	 * 
 	 * @return List<RoleDTO>
 	 */
-	public List<RoleDTO> getAllRoles() ;
+	public Page<RoleDTO> getAllRoles( PageDTO pageDTO ) ;
 	
 	
 	/**

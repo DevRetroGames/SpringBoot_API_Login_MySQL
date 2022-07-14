@@ -3,9 +3,11 @@ package com.api.credenciales.service;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.api.credenciales.dto.IdentityDTO;
+import com.api.credenciales.dto.PageDTO;
 
 @Service
 public interface IIdentityService {
@@ -17,7 +19,7 @@ public interface IIdentityService {
 	 * 
 	 * @return List<IdentityDTO>
 	 */
-	public List<IdentityDTO> getAllIdentitys() ;
+	public Page<IdentityDTO> getAllIdentitys( PageDTO pageDTO ) ;
 	
 	
 	

@@ -10,17 +10,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.api.credenciales.dto.RoleDTO;
+import com.api.credenciales.security.JwtAuthRequest;
+import com.api.credenciales.security.JwtAuthResponse;
 
 @RestController
 @CrossOrigin( origins = "http://localhost:8081" )
-@RequestMapping( "/api/login" )
-public class LoginController {
+@RequestMapping( "/api/auth" )
+public class AuthController {
+  
+  @PostMapping( "/login" )
+  @ResponseStatus( HttpStatus.OK )
+  public JwtAuthResponse createRole( 
+      @Valid @RequestBody JwtAuthRequest request ) throws Exception {
+    
+    return null ;
+    
+  }
 
-	@PostMapping( "/" )
-	@ResponseStatus( HttpStatus.CREATED )
-	public RoleDTO createRole( @Valid @RequestBody RoleDTO rolesDTO ) {		
-		return null ;
-	}
-	
+  
+  
 }

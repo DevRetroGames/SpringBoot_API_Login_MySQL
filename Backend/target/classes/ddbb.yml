@@ -1,0 +1,7 @@
+ddbb:
+  host: localhost
+  port: 3307
+  database: CREDENTIALS
+  user: root
+  pwd: root
+  schema: CREDENTIALS

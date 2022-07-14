@@ -39,7 +39,7 @@ Para el modelado de negocio se utilizo Archi.
 
 ### Pendientes.
 1. Spring Security.
-2. Cambiar findAll por paginate and sort.
+2. ~~Cambiar findAll por paginate and sort.~~ 
 3. Añadir WebSocket en getAll.
 4. Añadir perfiles en el backend.
 5. Realizar los tests.

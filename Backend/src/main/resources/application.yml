@@ -8,10 +8,15 @@ logging:
         security: DEBUG
 
 spring:
+  config:
+    import:
+    - ddbb.yml
+  application:
+    name: credentials
   datasource:
-    url: jdbc:mysql://localhost:3307/CREDENTIALS
-    username: root
-    password: root
+    url: jdbc:mysql://${ddbb.host}:${ddbb.port}/${ddbb.database}
+    username: ${ddbb.user}
+    password: ${ddbb.pwd}
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,7 +29,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     properties:
       hibernate:
-        "[default_schema]": CREDENTIALS
+        "[default_schema]": ${ddbb.schema}
         hbm2ddl:
           auto: none
-          

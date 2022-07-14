@@ -1,14 +1,16 @@
 package com.api.credenciales.serviceImpl;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.dto.RoleDTO;
 import com.api.credenciales.helper.CreateHelper;
 import com.api.credenciales.helper.FindAll;
@@ -46,9 +48,15 @@ public class RoleServiceImpl implements IRoleService {
 	
 	
 	@Override	
-	public List<RoleDTO> getAllRoles() {
-		
-		return this.findAll.getAllRoles().join() ;
+	public Page<RoleDTO> getAllRoles( PageDTO pageDTO ) {
+	  
+	  PageRequest pageRequest = 
+	      PageRequest.of( 
+	          pageDTO.getPage() , 
+	          pageDTO.getQuantityRecords() 
+	        ) ;
+	  
+	  return this.findAll.getAllRoles( pageRequest ).join() ;
 		
 	}
 	

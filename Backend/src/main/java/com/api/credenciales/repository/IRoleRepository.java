@@ -9,7 +9,5 @@ import com.api.credenciales.model.Role ;
 
 @Repository
 public interface IRoleRepository extends JpaRepository< Role , UUID > {
-	
-	
-	
+  
 }

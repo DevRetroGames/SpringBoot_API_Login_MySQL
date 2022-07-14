@@ -1,11 +1,12 @@
 package com.api.credenciales.service;
 
-import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.api.credenciales.dto.InformationDTO;
+import com.api.credenciales.dto.PageDTO;
 
 @Service
 public interface IInformationService {
@@ -16,7 +17,7 @@ public interface IInformationService {
 	 * 
 	 * @return List<InformationDTO>
 	 */
-	public List<InformationDTO> getAllInformations() ;
+	public Page<InformationDTO> getAllInformations( PageDTO pageDTO ) ;
 	
 	
 	/**

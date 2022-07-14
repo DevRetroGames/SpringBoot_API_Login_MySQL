@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.credenciales.dto.ApiResponse;
 import com.api.credenciales.dto.IdentityDTO;
+import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.service.IIdentityService;
 
 @RestController
@@ -37,8 +39,8 @@ public class IdentityController {
 	
 	@GetMapping( "/" )
 	@ResponseStatus( HttpStatus.OK )
-	public List<IdentityDTO> getAllIdentitys() {		
-		return this.service.getAllIdentitys() ;
+	public Page<IdentityDTO> getAllIdentitys( @Valid @RequestBody PageDTO pageDTO ) {		
+		return this.service.getAllIdentitys( pageDTO ) ;
 	}
 	
 	

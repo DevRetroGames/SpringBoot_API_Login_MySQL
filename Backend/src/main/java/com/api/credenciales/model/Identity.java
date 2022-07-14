@@ -36,8 +36,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @Table( name = "IDENTITYS" )
 public class Identity {
-	
-	@Id
+
+  @Id
 	@GeneratedValue( generator = "hibernate-uuid" )
 	@GenericGenerator( name = "uuid" , strategy = "uuid4" )
 	@Type( type = "org.hibernate.type.UUIDCharType" )
@@ -50,12 +50,12 @@ public class Identity {
 	private Information information ;
 	
 	// foreign key of the table roles
-    @ManyToMany( cascade = { CascadeType.MERGE , CascadeType.REMOVE } , fetch=FetchType.EAGER )
-    @JoinTable(
-		name = "IDENTITYS_ROLES" ,
-        joinColumns = @JoinColumn( name = "identity_id" , referencedColumnName="id" ) ,
-        inverseJoinColumns = @JoinColumn( name = "role_id" , referencedColumnName="id" )
-    )
+  @ManyToMany( cascade = { CascadeType.MERGE , CascadeType.REMOVE } , fetch=FetchType.EAGER )
+  @JoinTable(
+	name = "IDENTITYS_ROLES" ,
+      joinColumns = { @JoinColumn( name = "identity_id" , referencedColumnName = "id" ) } ,
+      inverseJoinColumns = { @JoinColumn( name = "role_id" , referencedColumnName = "id" ) }
+  )
 	private List< Role > listRoles = new ArrayList<>() ;
 	
 	@Column( name = "username" )

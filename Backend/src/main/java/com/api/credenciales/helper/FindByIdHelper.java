@@ -35,7 +35,8 @@ public class FindByIdHelper {
 		
 		Role role = this.iRoleRepository
 				.findById( roleID )
-				.orElseThrow( () -> new NotFoundException( "Role" , "id" , roleID ) ) ;
+				.orElseThrow( () -> new NotFoundException( "Role" , "id" , roleID ) ) 
+				;
 		
 		return CompletableFuture.completedFuture( role ) ;
 		

@@ -1,12 +1,12 @@
 package com.api.credenciales.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.credenciales.dto.ApiResponse;
+import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.dto.RoleDTO;
 import com.api.credenciales.service.IRoleService;
 
@@ -28,6 +29,7 @@ import com.api.credenciales.service.IRoleService;
 @RequestMapping( "/api/role" )
 public class RoleController {
 	
+  
 	@Autowired
 	@Qualifier("role")
 	private IRoleService service ;
@@ -36,8 +38,8 @@ public class RoleController {
 	
 	@GetMapping( "/" )
 	@ResponseStatus( HttpStatus.OK )
-	public List<RoleDTO> getAllRoles() {		
-		return this.service.getAllRoles() ;
+	public Page<RoleDTO> getAllRoles( @Valid @RequestBody PageDTO pageDTO ) {		
+		return this.service.getAllRoles( pageDTO ) ;
 	}
 	
 	
