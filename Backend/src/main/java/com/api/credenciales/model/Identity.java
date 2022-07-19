@@ -1,8 +1,8 @@
 package com.api.credenciales.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -56,7 +56,8 @@ public class Identity {
       joinColumns = { @JoinColumn( name = "identity_id" , referencedColumnName = "id" ) } ,
       inverseJoinColumns = { @JoinColumn( name = "role_id" , referencedColumnName = "id" ) }
   )
-	private List< Role > listRoles = new ArrayList<>() ;
+	private Set< Role > listRoles = new HashSet<>() ;
+  //private List< Role > listRoles = new ArrayList<>() ;
 	
 	@Column( name = "username" )
 	private String username ;

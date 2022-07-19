@@ -1,6 +1,7 @@
 package com.api.credenciales.helper;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -87,11 +88,11 @@ public class UpdateHelper {
 		
 		IdentityDTO identityDTOCopy = identityDTO ;
 		
-		List< Role > listRoleEntity = 
+		Set< Role > listRoleEntity = 
 				listRoleDTO
 				.stream()
 				.map( this.mapperUtil::roleDTOToRoleEntity )
-				.collect( Collectors.toList() ) ; 
+				.collect( Collectors.toSet() ) ; 
 		
 		identityEntity.setListRoles( listRoleEntity ) ;
 		identityEntity.setUsername( identityDTOCopy.getUsername() ) ;

@@ -1,7 +1,6 @@
 package com.api.credenciales.helper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -84,13 +83,13 @@ public class CreateHelper {
 		Information informationEntity = 
 				this.mapperUtil.informationDTOToInformationEntity( informationDTO ) ;
 		
-		List< Role > listRoleEntity = new ArrayList<>() ;
+		Set< Role > listRoleEntity = new HashSet<>() ;
 		listRoleEntity
 			.addAll( 
 				listRoleDTO
 				.stream()
 				.map( role -> this.mapperUtil.roleDTOToRoleEntity( role ) )
-				.collect( Collectors.toList() ) 
+				.collect( Collectors.toSet() ) 
 			) ;
 		
 		identityEntity.setInformation( informationEntity ) ;

@@ -39,11 +39,10 @@ Para el modelado de negocio se utilizo Archi.
 
 ### Pendientes.
 1. Spring Security.
-2. ~~Cambiar findAll por paginate and sort.~~ 
-3. Añadir WebSocket en getAll.
-4. Añadir perfiles en el backend.
-5. Realizar los tests.
+2. Añadir WebSocket en getAll.
+3. Añadir perfiles en el backend.
+4. Realizar los tests.
     1. JUnit 5.
     2. Mockito.
     3. SonarQube.
-6. Spring Swagger.
+5. Spring Swagger.

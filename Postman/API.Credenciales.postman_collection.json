@@ -11,9 +11,24 @@
 			"item": [
 				{
 					"name": "get identificaciones",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"page\" : \"0\" ,\n    \"quantityRecords\" : \"5\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/",
 							"host": [
@@ -27,41 +42,23 @@
 					"response": []
 				},
 				{
-					"name": "get identificacion by informacion",
+					"name": "get single Identity",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/associate/rol?indentificacionID=035dd999-da26-11ec-afb0-0242ac190004",
+							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/identity?identityID=f95ad703-0ec5-49a1-8a9d-afb816e4856a",
 							"host": [
 								"{{API-URL}}{{API-IDENTIFICACION}}"
 							],
 							"path": [
-								"associate",
-								"rol"
+								"identity"
 							],
 							"query": [
 								{
-									"key": "indentificacionID",
-									"value": "035dd999-da26-11ec-afb0-0242ac190004"
+									"key": "identityID",
+									"value": "f95ad703-0ec5-49a1-8a9d-afb816e4856a"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get identificacion by rol",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/",
-							"host": [
-								"{{API-URL}}{{API-IDENTIFICACION}}"
-							],
-							"path": [
-								""
 							]
 						}
 					},
@@ -74,7 +71,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario\": \"demo123456789\",\n    \"passWord\": \"123456789\",\n    \"status\": true\n}",
+							"raw": "{\n    \"username\": \"demo951236\",\n    \"keyword\": \"123456789\",\n    \"status\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +79,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/?informacionID=61d0f0d1-3170-40de-9e46-f20b7ab0ef44&rolID=ff69291b-1e20-444f-ab66-5ffaf54d6331",
+							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/?informationID=014e9eb7-f284-11ec-99d1-0242ac130002&listRoleID=1c4b3830-271f-45e3-ae46-a822eb9e0f3a,b5df743d-1098-433b-9023-b51cce23a3f2",
 							"host": [
 								"{{API-URL}}{{API-IDENTIFICACION}}"
 							],
@@ -91,12 +88,12 @@
 							],
 							"query": [
 								{
-									"key": "informacionID",
-									"value": "61d0f0d1-3170-40de-9e46-f20b7ab0ef44"
+									"key": "informationID",
+									"value": "014e9eb7-f284-11ec-99d1-0242ac130002"
 								},
 								{
-									"key": "rolID",
-									"value": "ff69291b-1e20-444f-ab66-5ffaf54d6331"
+									"key": "listRoleID",
+									"value": "1c4b3830-271f-45e3-ae46-a822eb9e0f3a,b5df743d-1098-433b-9023-b51cce23a3f2"
 								}
 							]
 						}
@@ -110,7 +107,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"usuario\": \"nombreUpdate\",\n    \"passWord\": \"123456789\",\n    \"status\": true\n}",
+							"raw": "{\n    \"username\": \"nombreUpdate\",\n    \"keyword\": \"123456789\",\n    \"status\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -118,7 +115,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/?indentificacionID=1214656a-8477-4012-bdcc-934b2ea112fb&informacionID=bb45fd6e-0cac-45be-b0ad-dc8f688fe44d&rolID=967dcb1d-7278-4417-b18a-4a21e43dca65",
+							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/?identityID=0ee44d7b-33de-4917-8b5f-77c0028f5954&listRoleID=893806e0-f283-11ec-99d1-0242ac130002",
 							"host": [
 								"{{API-URL}}{{API-IDENTIFICACION}}"
 							],
@@ -127,16 +124,12 @@
 							],
 							"query": [
 								{
-									"key": "indentificacionID",
-									"value": "1214656a-8477-4012-bdcc-934b2ea112fb"
+									"key": "identityID",
+									"value": "0ee44d7b-33de-4917-8b5f-77c0028f5954"
 								},
 								{
-									"key": "informacionID",
-									"value": "bb45fd6e-0cac-45be-b0ad-dc8f688fe44d"
-								},
-								{
-									"key": "rolID",
-									"value": "967dcb1d-7278-4417-b18a-4a21e43dca65"
+									"key": "listRoleID",
+									"value": "893806e0-f283-11ec-99d1-0242ac130002"
 								}
 							]
 						}
@@ -158,7 +151,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/?indentificacionID=ba0e11fe-53d4-4332-824a-d62221fb470a",
+							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/?identityID=f95ad703-0ec5-49a1-8a9d-afb816e4856a",
 							"host": [
 								"{{API-URL}}{{API-IDENTIFICACION}}"
 							],
@@ -167,8 +160,8 @@
 							],
 							"query": [
 								{
-									"key": "indentificacionID",
-									"value": "ba0e11fe-53d4-4332-824a-d62221fb470a"
+									"key": "identityID",
+									"value": "f95ad703-0ec5-49a1-8a9d-afb816e4856a"
 								}
 							]
 						}
@@ -182,23 +175,28 @@
 			"item": [
 				{
 					"name": "get Informaciones",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"page\" : \"0\" ,\n    \"quantityRecords\" : \"5\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{API-URL}}{{API-IDENTIFICACION}}/associate/informacion?indentificacionID=035dd999-da26-11ec-afb0-0242ac190004",
+							"raw": "{{API-URL}}{{API-INFORMACION}}/",
 							"host": [
-								"{{API-URL}}{{API-IDENTIFICACION}}"
+								"{{API-URL}}{{API-INFORMACION}}"
 							],
 							"path": [
-								"associate",
-								"informacion"
-							],
-							"query": [
-								{
-									"key": "indentificacionID",
-									"value": "035dd999-da26-11ec-afb0-0242ac190004"
-								}
+								""
 							]
 						}
 					},
@@ -210,7 +208,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{API-URL}}{{API-INFORMACION}}/informacion?informacionID=b5381b19-44db-4b24-957e-3166e1b31cca",
+							"raw": "{{API-URL}}{{API-INFORMACION}}/informacion?informacionID=014e9eb7-f284-11ec-99d1-0242ac130002",
 							"host": [
 								"{{API-URL}}{{API-INFORMACION}}"
 							],
@@ -220,7 +218,7 @@
 							"query": [
 								{
 									"key": "informacionID",
-									"value": "b5381b19-44db-4b24-957e-3166e1b31cca"
+									"value": "014e9eb7-f284-11ec-99d1-0242ac130002"
 								}
 							]
 						}
@@ -234,7 +232,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"names\": \"nombres2\",\n    \"lastNames\": \"apellidos\",\n    \"years\": 30,\n    \"cellPhonoNumber\": \"+56912345678\",\n    \"email\": \"correo@live.cl\",\n    \"dni\": \"12.345.678-9\",\n    \"country\": \"pais5\",\n    \"city\": \"ciudad\"\n}",
+							"raw": "{\n    \"name\": \"nombres3\",\n    \"lastName\": \"apellidos\",\n    \"age\": 30,\n    \"cellPhonoNumber\": \"+56912345678\",\n    \"email\": \"correo@live.cl\",\n    \"dni\": \"12.345.678-7\",\n    \"country\": \"pais5\",\n    \"city\": \"ciudad\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -260,7 +258,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"names\": \"nombresUpdate\",\n    \"lastNames\": \"apellidos\",\n    \"years\": 30,\n    \"cellPhonoNumber\": \"+56912345678\",\n    \"email\": \"correo@live.cl\",\n    \"dni\": \"12.345.678-9\",\n    \"country\": \"pais5\",\n    \"city\": \"ciudad\"\n}",
+							"raw": "{\n    \"name\": \"nombresUpdate\",\n    \"lastName\": \"apellidos\",\n    \"age\": 30,\n    \"cellPhonoNumber\": \"+56912345678\",\n    \"email\": \"correo@live.cl\",\n    \"dni\": \"12.345.678-8\",\n    \"country\": \"pais5\",\n    \"city\": \"ciudad\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -268,7 +266,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-INFORMACION}}/?informacionID=b5381b19-44db-4b24-957e-3166e1b31cca",
+							"raw": "{{API-URL}}{{API-INFORMACION}}/?informacionID=f77ab5f4-3049-429d-ad39-ffa60274c83e",
 							"host": [
 								"{{API-URL}}{{API-INFORMACION}}"
 							],
@@ -278,7 +276,7 @@
 							"query": [
 								{
 									"key": "informacionID",
-									"value": "b5381b19-44db-4b24-957e-3166e1b31cca"
+									"value": "f77ab5f4-3049-429d-ad39-ffa60274c83e"
 								}
 							]
 						}
@@ -300,7 +298,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-INFORMACION}}/?informacionID=b5381b19-44db-4b24-957e-3166e1b31cca",
+							"raw": "{{API-URL}}{{API-INFORMACION}}/?informacionID=3c06a39f-79d9-438a-9675-421d61f9da94",
 							"host": [
 								"{{API-URL}}{{API-INFORMACION}}"
 							],
@@ -310,7 +308,7 @@
 							"query": [
 								{
 									"key": "informacionID",
-									"value": "b5381b19-44db-4b24-957e-3166e1b31cca"
+									"value": "3c06a39f-79d9-438a-9675-421d61f9da94"
 								}
 							]
 						}
@@ -324,7 +322,13 @@
 			"item": [
 				{
 					"name": "get roles",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -333,6 +337,10 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"page\" : \"0\" ,\n    \"quantityRecords\" : \"5\" \n}"
+						},
 						"url": {
 							"raw": "{{API-URL}}{{API-ROLE}}/",
 							"host": [
@@ -363,7 +371,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-ROLE}}/role?roleID=bedbbf1b-bc72-48e4-8282-e9552b2b04dc",
+							"raw": "{{API-URL}}{{API-ROLE}}/role?roleID=1c4b3830-271f-45e3-ae46-a822eb9e0f3a",
 							"host": [
 								"{{API-URL}}{{API-ROLE}}"
 							],
@@ -373,7 +381,7 @@
 							"query": [
 								{
 									"key": "roleID",
-									"value": "bedbbf1b-bc72-48e4-8282-e9552b2b04dc"
+									"value": "1c4b3830-271f-45e3-ae46-a822eb9e0f3a"
 								}
 							]
 						}
@@ -387,7 +395,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\"    : \"demo6\" ,\n    \"status\"  : true\n}",
+							"raw": "{\n    \"name\"    : \"demo9\" ,\n    \"status\"  : true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -421,7 +429,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-ROLE}}/?roleID=bedbbf1b-bc72-48e4-8282-e9552b2b04dc",
+							"raw": "{{API-URL}}{{API-ROLE}}/?roleID=02410722-08af-4dd9-a93b-453817de0260",
 							"host": [
 								"{{API-URL}}{{API-ROLE}}"
 							],
@@ -431,7 +439,7 @@
 							"query": [
 								{
 									"key": "roleID",
-									"value": "bedbbf1b-bc72-48e4-8282-e9552b2b04dc"
+									"value": "02410722-08af-4dd9-a93b-453817de0260"
 								}
 							]
 						}
@@ -453,7 +461,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{API-URL}}{{API-ROLE}}/?roleID=8663afd4-7c72-4356-9126-08c412f4f5a4",
+							"raw": "{{API-URL}}{{API-ROLE}}/?roleID=02410722-08af-4dd9-a93b-453817de0260",
 							"host": [
 								"{{API-URL}}{{API-ROLE}}"
 							],
@@ -463,8 +471,42 @@
 							"query": [
 								{
 									"key": "roleID",
-									"value": "8663afd4-7c72-4356-9126-08c412f4f5a4"
+									"value": "02410722-08af-4dd9-a93b-453817de0260"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"correo@live.cl\" ,\n    \"password\" : \"dev\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API-URL}}{{API-AUTH}}/login",
+							"host": [
+								"{{API-URL}}{{API-AUTH}}"
+							],
+							"path": [
+								"login"
 							]
 						}
 					},
