@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS.IDENTITYS (
     -- role_id VARCHAR( 36 ) ,
 
     -- access credentials
-    username VARCHAR( 255 ) NOT NULL UNIQUE ,
     keyword VARCHAR( 255 ) NOT NULL ,
 
     -- 0: off

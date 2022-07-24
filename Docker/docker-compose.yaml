@@ -1,7 +1,8 @@
 version: '3'
 
 services:
-  mysql_credentials:
+
+  data_base:
     image: 'mysql:8'
     container_name: mysql_credentials
     platform: linux/x86_64
@@ -9,21 +10,34 @@ services:
     ports:
       - '3307:3306'
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${DDBB_PASSWORD}
       TZ: America/Santiago
     volumes:
       - './credentials:/var/lib/docker/volumes/crentials'
     networks:
       net_interna:
         aliases:
-          - mysql_api_net_credentials
+          - api_net_credentials
+  
+  backend:
+    image: api_credenciales:latest
+    container_name: spring_boot
+    build:
+      context: ../Backend/
+      dockerfile: Dockerfile
+    depends_on:
+      - data_base      
+    networks:
+      net_interna:
+        aliases:
+          - api_net_backend
 
 volumes:
   credenciales: {}
 
 networks:
   net_interna:
-    name: mysql_api_net
+    name: api_net
     driver: bridge
     ipam:
       driver: default

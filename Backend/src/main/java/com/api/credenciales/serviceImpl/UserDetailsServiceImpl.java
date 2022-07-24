@@ -1,10 +1,7 @@
 package com.api.credenciales.serviceImpl;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +14,7 @@ import com.api.credenciales.repository.IIdentityRepository;
 import com.api.credenciales.repository.IInformationRepository;
 
 @Service
-@Qualifier("customUserDetailsService")
+@Qualifier( "UserDetailsServiceImpl" )
 public class UserDetailsServiceImpl implements UserDetailsService {
   
   
@@ -36,19 +33,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     Information information =
         this.informationRepository
             .findByEmail( username )
-            .orElseThrow( () -> new NotFoundException( "User" , "email" , username ) )
+            .orElseThrow( () -> 
+                new NotFoundException( "User" , "email" , username ) 
+              )
             ;
     
     Identity identity =
         this.identityRepository
             .findByInformation( information )
-            .orElseThrow( () -> new UsernameNotFoundException( "User not found." ) )
+            .orElseThrow( () -> 
+                new UsernameNotFoundException( "User not found." ) 
+              )
             ;
     
-    return new User( 
-        information.getEmail() , 
-        identity.getKeyword() , 
-        new ArrayList<>() ) ;
+    return identity ;
     
   }
   

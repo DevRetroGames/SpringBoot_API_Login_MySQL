@@ -1,34 +1,4 @@
-server:
-  port: 8081
-
-logging:
-  level:
-    org: 
-      springframework:
-        security: DEBUG
-
 spring:
-  config:
-    import:
-    - ddbb.yml
-  application:
-    name: credentials
-  datasource:
-    url: jdbc:mysql://${ddbb.host}:${ddbb.port}/${ddbb.database}
-    username: ${ddbb.user}
-    password: ${ddbb.pwd}
-  jpa:
-    hibernate:
-      ddl-auto: update
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    generate-ddl: false
-    show-sql: false
-    open-in-view: false
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    properties:
-      hibernate:
-        "[default_schema]": ${ddbb.schema}
-        hbm2ddl:
-          auto: none
+  profiles:
+    active:
+    - dev

@@ -19,10 +19,6 @@ public class IdentityDTO {
 	
 	private List< RoleDTO > listRoles = new ArrayList<>() ;
 	
-	@NotBlank( message = "Username required." )
-	@Size( min = 9 , max = 50 , message = "Invalid username length." )
-	private String username ;
-	
 	@NotBlank( message = "Keyword required." )
 	@Size( min = 9 , max = 50 , message = "Invalid keyword length." )
 	private String keyword ;

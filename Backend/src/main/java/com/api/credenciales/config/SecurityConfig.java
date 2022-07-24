@@ -15,6 +15,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.api.credenciales.security.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,10 +27,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   
   
   @Autowired
+  @Qualifier( "UserDetailsServiceImpl" )
   private UserDetailsService userDetailsService ;
   
   @Autowired
   private AuthenticationProvider authenticationProvider ;
+  
+  @Autowired
+  private AuthenticationEntryPoint authenticationEntryPoint ;
+  
+  @Autowired
+  private JwtAuthenticationFilter jwtAuthenticationFilter ;
   
   
   @Bean
@@ -68,17 +79,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       .disable() ;
     
     http
+    .authorizeRequests()
+    .antMatchers( "/api/auth/**" ).permitAll()
+    .antMatchers( "/api/role/**" ).hasRole( "dev_admin" )
+    .antMatchers( "/api/information/**" ).hasRole( "dev_admin" )
+    .antMatchers( "/api/identity/**" ).hasRole( "dev_admin" )
+    .anyRequest()
+    .authenticated()
+    ;
+    
+    http
+      .exceptionHandling()
+      .authenticationEntryPoint( this.authenticationEntryPoint )
+      .and()
       .sessionManagement()
       .sessionCreationPolicy( SessionCreationPolicy.STATELESS )
       ;
     
     http
-      .authorizeRequests()
-      .antMatchers( "/api/auth/**" ).permitAll()
-      .anyRequest()
-      .authenticated()
-      .and()
-      .httpBasic()
+      .addFilterBefore( 
+          this.jwtAuthenticationFilter , 
+          UsernamePasswordAuthenticationFilter.class )
       ;
     
   }

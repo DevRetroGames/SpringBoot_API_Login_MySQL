@@ -1,9 +1,12 @@
 package com.api.credenciales.model;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,6 +24,9 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +34,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@SuppressWarnings("serial")
 @Entity
 @Getter
 @Setter
@@ -35,7 +42,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "IDENTITYS" )
-public class Identity {
+public class Identity implements UserDetails {
 
   @Id
 	@GeneratedValue( generator = "hibernate-uuid" )
@@ -57,10 +64,6 @@ public class Identity {
       inverseJoinColumns = { @JoinColumn( name = "role_id" , referencedColumnName = "id" ) }
   )
 	private Set< Role > listRoles = new HashSet<>() ;
-  //private List< Role > listRoles = new ArrayList<>() ;
-	
-	@Column( name = "username" )
-	private String username ;
 	
 	@Column( name = "keyword" )
 	private String keyword ;
@@ -76,4 +79,51 @@ public class Identity {
 	@Column( name = "update_at" , insertable = false, updatable = false )
 	private Date updateAt ;
 
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    
+    List< SimpleGrantedAuthority > authorities = 
+        this.getListRoles()
+            .stream()
+            .map( ( role ) -> 
+                new SimpleGrantedAuthority( "ROLE_" + role.getName() ) 
+              )
+            .collect( Collectors.toList() )
+            ;
+    
+    return authorities ;
+    
+  }
+  
+  @Override
+  public String getUsername() {
+    return this.information.getEmail() ;
+  }
+
+  @Override
+  public String getPassword() {
+    return this.getKeyword() ;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true ;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true ;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true ;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true ;
+  }
+  
+  
 }

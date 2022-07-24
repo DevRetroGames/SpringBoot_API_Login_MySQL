@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +24,6 @@ import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.service.IInformationService;
 
 @RestController
-@CrossOrigin( origins = "http://localhost:8081" )
 @RequestMapping( "/api/information" )
 public class InformationController {
 	

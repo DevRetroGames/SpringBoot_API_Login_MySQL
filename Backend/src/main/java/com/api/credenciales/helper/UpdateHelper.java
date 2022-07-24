@@ -95,7 +95,6 @@ public class UpdateHelper {
 				.collect( Collectors.toSet() ) ; 
 		
 		identityEntity.setListRoles( listRoleEntity ) ;
-		identityEntity.setUsername( identityDTOCopy.getUsername() ) ;
 		identityEntity.setKeyword( identityDTOCopy.getKeyword() ) ;
 		identityEntity.setStatus( identityDTOCopy.isStatus() ) ;
 		
