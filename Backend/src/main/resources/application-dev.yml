@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8081  
 
 logging:
   level:
@@ -13,7 +13,7 @@ spring:
       on-profile:
       - dev
     import:
-    - ddbb.yml
+    - environment.yml
   application:
     name: credentials
   datasource:
@@ -24,8 +24,8 @@ spring:
     hibernate:
       ddl-auto: update
       naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: ${jpa.implicit-strategy}
+        physical-strategy: ${jpa.physical-strategy}
     generate-ddl: false
     show-sql: false
     open-in-view: false
@@ -35,3 +35,49 @@ spring:
         "[default_schema]": ${ddbb.schema}
         hbm2ddl:
           auto: none
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: ${file.max-file-size}
+      file-size-threshold: ${file.file-size-threshold}
+      resolve-lazily: true
+      
+cors:
+  host: ${cor.host}
+  
+image:
+  format: .jpg
+  type: image/png
+          
+sftp:
+  host: ${ftp.host}
+  port: ${ftp.port}
+  user: ${ftp.user}
+  password: ${ftp.password}
+  upload: ${ftp.upload}
+  dir_local: ${ftp.dir_local}
+  timeout:
+    session: ${ftp.timeout.session}
+    channel: ${ftp.timeout.channel}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -77,7 +77,7 @@ public class IdentityController {
 	@ResponseStatus( HttpStatus.OK )
 	public ApiResponse deleteIdentification( @RequestParam UUID identityID ) {		
 		this.service.deleteIdentity( identityID ) ;
-		return new ApiResponse( "Information Deleted Successfully." , true ) ;
+		return new ApiResponse( "Information Deleted Successfully." ) ;
 	}
 	
 }

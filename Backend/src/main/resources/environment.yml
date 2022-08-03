@@ -1,0 +1,30 @@
+ddbb:
+  host: localhost
+  port: 3307
+  database: CREDENTIALS
+  user: root
+  pwd: root
+  schema: CREDENTIALS
+  
+jpa:
+  implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+  physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+cor:
+  host: localhost
+  port: 8081
+
+ftp:
+  host: 127.0.0.1
+  port: 2222
+  user: foo
+  password: pass
+  upload: upload/
+  dir_local: /media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Build/tmp/
+  timeout:
+    session: 15000
+    channel: 15000
+    
+file:
+  max-file-size: 500KB
+  file-size-threshold: 500KB

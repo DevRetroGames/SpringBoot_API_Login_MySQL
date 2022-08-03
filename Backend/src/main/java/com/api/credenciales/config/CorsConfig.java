@@ -13,7 +13,8 @@ public class CorsConfig {
 	private static final String DELETE = "delete" ;
 	private static final String PUT = "put" ;
 	
-	
+  private static final String HOST = "${cors:host}" ;
+  private static final String PORT = "${server:port}" ;
 	
 	public WebMvcConfigurer corsConfig() {
 		
@@ -27,7 +28,7 @@ public class CorsConfig {
 				  .addMapping( "/**" )
 					.allowedMethods( GET , POST , DELETE , PUT )
 					.allowedHeaders( "*" )
-					.allowedOriginPatterns( "http://localhost:8081" ) 
+					.allowedOriginPatterns( HOST + PORT ) 
 					.allowCredentials( true ) 
 					;
 				

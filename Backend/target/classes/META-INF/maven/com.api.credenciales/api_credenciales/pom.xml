@@ -15,6 +15,7 @@
 	<version>1.0.0</version>
 	<name>api_credenciales</name>
 	<description>api_credenciales</description>
+	<packaging>jar</packaging>
 	
 	<properties>
 		<java.version>11</java.version>
@@ -90,8 +91,21 @@
       <artifactId>commons-lang3</artifactId>      
     </dependency>
     
-	<!-- security & JWT -->
-		
+    <!-- sftp -->
+    <dependency>
+      <groupId>com.jcraft</groupId>
+      <artifactId>jsch</artifactId>
+      <version>0.1.55</version>
+    </dependency>
+    
+    <!-- swagger 3 -->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>1.6.9</version>
+    </dependency>
+
+	  <!-- security & JWT -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -116,7 +130,6 @@
     </dependency>
     
     <!-- testing -->
-    
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -140,6 +153,7 @@
 
 	<build>
 		<plugins>
+		
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -152,6 +166,9 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			
+			
+			
 		</plugins>
 	</build>
 

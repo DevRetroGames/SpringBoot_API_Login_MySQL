@@ -51,4 +51,7 @@ public class InformationDTO {
 	@Size( min = 5 , max = 255 , message = "Invalid city name length." )
 	private String city ;
 	
+	@NotNull( message = "Image required." )
+	private boolean image ;
+	
 }

@@ -1,6 +1,51 @@
-/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/model/Roles.java
-/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/controller/RolesController.java
-/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/controller/InformacionController.java
-/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/ApiCredencialesApplication.java
-/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/repository/IRolesRepository.java
-/media/dev/Mundo/Tesis/Dev/Backend/api_credenciales/src/main/java/com/api/credenciales/controller/IdentificacionController.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/security/JwtAuthRequest.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/AuthenticationEntryPointImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/util/FtpUtil.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/security/JwtAuthResponse.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/service/IRoleService.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/RoleServiceImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/config/AsyncConfig.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/config/CorsConfig.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/model/Information.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/exceptions/BadRequestException.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/controller/RoleController.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/model/Identity.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/ApiCredencialesApplication.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/service/IImageService.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/util/ImageUtil.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/repository/IIdentityRepository.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/helper/JwtHelper.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/controller/ImageController.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/IdentityServiceImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/dto/ImageDTO.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/util/JwtUtil.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/helper/FindAll.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/controller/InformationController.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/UserDetailsServiceImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/repository/IRoleRepository.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/dto/InformationDTO.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/config/ModelMapperConfig.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/exceptions/AsyncExceptionHandler.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/AuthenticationProviderImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/JwtServiceImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/service/IJwtService.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/repository/IInformationRepository.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/model/Role.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/config/SecurityConfig.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/helper/UpdateHelper.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/dto/IdentityDTO.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/dto/PageDTO.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/dto/RoleDTO.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/helper/FindByIdHelper.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/security/JwtAuthenticationFilter.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/ImageServiceImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/exceptions/NotFoundException.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/service/IIdentityService.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/dto/ApiResponse.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/serviceImpl/InformationServiceImpl.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/helper/CreateHelper.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/controller/IdentityController.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/service/IInformationService.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/util/MapperUtil.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/controller/AuthController.java
+/media/dev/Mundo/Proyectos/spring boot/API_Login_MySQL/SpringBoot_API_Login_MySQL/Backend/src/main/java/com/api/credenciales/config/ExceptionConfig.java

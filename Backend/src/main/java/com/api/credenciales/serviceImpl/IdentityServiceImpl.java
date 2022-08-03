@@ -100,8 +100,8 @@ public class IdentityServiceImpl implements IIdentityService {
 				this.mapperUtil.informationEntityToInformationDTO( information.join() ) ;
 		
 		Set< RoleDTO > listRoleDTO = 
-				listRole.
-				stream()
+				listRole
+				.stream()
 				.map( role -> this.mapperUtil.roleEntityToRoleDTO( role.join() ) )
 				.collect( Collectors.toSet() ) ;
 		

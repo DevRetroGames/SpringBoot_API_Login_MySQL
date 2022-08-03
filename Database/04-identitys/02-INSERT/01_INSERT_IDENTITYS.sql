@@ -14,7 +14,6 @@ INSERT INTO CREDENTIALS.IDENTITYS(
 ) 
 VALUES( 
   ( SELECT id FROM INFORMATIONS WHERE name = "nombres" ) ,
-  "dev" , 
   "$2a$10$WaTD1I748SNiPF.j0Q0IA.rZMcyDUFCl37K1tSCefeaaLo028mdcq" ,
   1 
 ) ;

@@ -70,7 +70,7 @@ public class RoleController {
 	@ResponseStatus( HttpStatus.OK )
 	public ApiResponse deleteRole( @RequestParam UUID roleID ) {	
 		this.service.deleteRole( roleID ) ;
-		return new ApiResponse( "Role Deleted Successfully." , true ) ;
+		return new ApiResponse( "Role Deleted Successfully." ) ;
 	}
 	
 }

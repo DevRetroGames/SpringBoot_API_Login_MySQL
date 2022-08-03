@@ -8,7 +8,7 @@ services:
     platform: linux/x86_64
     restart: unless-stopped
     ports:
-      - '3307:3306'
+      - ${DDBB_PORT}
     environment:
       MYSQL_ROOT_PASSWORD: ${DDBB_PASSWORD}
       TZ: America/Santiago
@@ -17,27 +17,28 @@ services:
     networks:
       net_interna:
         aliases:
-          - api_net_credentials
-  
-  backend:
-    image: api_credenciales:latest
-    container_name: spring_boot
-    build:
-      context: ../Backend/
-      dockerfile: Dockerfile
-    depends_on:
-      - data_base      
+          - api_net_credentials_database
+
+  sftp:
+    image: atmoz/sftp
+    container_name: sftp_credentials
+    platform: linux/x86_64
+    volumes:
+        - ${SFTP_DIR}/upload:/home/foo/upload
+    ports:
+        - ${SFTP_PORT}
+    command: foo:pass:1001
     networks:
       net_interna:
         aliases:
-          - api_net_backend
+          - api_net_credentials_sftp
 
 volumes:
   credenciales: {}
 
 networks:
   net_interna:
-    name: api_net
+    name: api_net_credentials
     driver: bridge
     ipam:
       driver: default

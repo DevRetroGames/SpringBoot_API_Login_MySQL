@@ -63,6 +63,9 @@ public class Information {
 	@Column( name = "city" )
 	private String city ;
 	
+	@Column( name = "image" )
+	private boolean image ;
+	
 	@Temporal( TemporalType.TIMESTAMP )
 	@Column( name = "create_at" , insertable = false, updatable = false )
 	private Date createAt ;

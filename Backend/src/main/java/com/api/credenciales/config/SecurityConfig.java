@@ -57,11 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   
   @Override
   protected void configure( AuthenticationManagerBuilder auth ) throws Exception {
-    /*
-    auth
-      .userDetailsService( this.userDetailsService )
-      .passwordEncoder( this.passwordEncoder() ) 
-      ;*/
     
     auth
       .authenticationProvider( this.authenticationProvider )
@@ -80,10 +75,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     http
     .authorizeRequests()
-    .antMatchers( "/api/auth/**" ).permitAll()
+    .antMatchers( "/swagger-ui/**" ).permitAll()
+    .antMatchers( "/v3/**" ).permitAll()
+    .antMatchers( "/api/auth/**" ).permitAll()    
     .antMatchers( "/api/role/**" ).hasRole( "dev_admin" )
     .antMatchers( "/api/information/**" ).hasRole( "dev_admin" )
     .antMatchers( "/api/identity/**" ).hasRole( "dev_admin" )
+    .antMatchers( "/api/image/**" ).hasRole( "dev_admin" )
     .anyRequest()
     .authenticated()
     ;

@@ -8,5 +8,70 @@
     "name": "ddbb.host",
     "type": "java.lang.String",
     "description": "A description for 'ddbb.host'"
+  },
+  {
+    "name": "sftp.host",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.host'"
+  },
+  {
+    "name": "sftp.password",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.password'"
+  },
+  {
+    "name": "sftp.port",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.port'"
+  },
+  {
+    "name": "sftp.user",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.user'"
+  },
+  {
+    "name": "sftp.upload",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.upload'"
+  },
+  {
+    "name": "sftp.download",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.download'"
+  },
+  {
+    "name": "sftp.dir_local",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.dir_local'"
+  },
+  {
+    "name": "cors.host",
+    "type": "java.lang.String",
+    "description": "A description for 'cors.host'"
+  },
+  {
+    "name": "cors.port",
+    "type": "java.lang.String",
+    "description": "A description for 'cors.port'"
+  },
+  {
+    "name": "sftp.timeout.session",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.timeout.session'"
+  },
+  {
+    "name": "sftp.timeout.channel",
+    "type": "java.lang.String",
+    "description": "A description for 'sftp.timeout.channel'"
+  },
+  {
+    "name": "image.format",
+    "type": "java.lang.String",
+    "description": "A description for 'image.format'"
+  },
+  {
+    "name": "image.type",
+    "type": "java.lang.String",
+    "description": "A description for 'image.type'"
   }
 ]}

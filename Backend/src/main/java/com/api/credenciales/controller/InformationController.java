@@ -73,7 +73,7 @@ public class InformationController {
 	@ResponseStatus( HttpStatus.OK )
 	public ApiResponse deleteInformation( @RequestParam UUID informacionID ) {		
 		this.service.deleteInformation( informacionID ) ;
-		return new ApiResponse( "Information Deleted Successfully." , true ) ;
+		return new ApiResponse( "Information Deleted Successfully." ) ;
 	}
 	
 }

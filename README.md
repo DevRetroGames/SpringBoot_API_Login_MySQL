@@ -28,11 +28,12 @@ Para el modelado de negocio se utilizo Archi.
     1. En desarrollo.
 2. Vue 3.
     1. En desarrollo.
-3. React .
+3. React 18.
     1. En desarrollo.
 
 ### Docker-compose.
 1. MySQL.
+2. SFTP.
 
 ### Diagramas UML.
 1. Dia.
@@ -42,4 +43,3 @@ Para el modelado de negocio se utilizo Archi.
     1. JUnit 5.
     2. Mockito.
     3. SonarQube.
-2. Spring Swagger.
