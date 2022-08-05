@@ -21,5 +21,5 @@ INSERT INTO CREDENTIALS.INFORMATIONS(
 ) 
 VALUES( 
   "nombres" , "apellidos" , 30 , "+56912345678" , "correo@live.cl" ,
-  "12345678-9" , "pais" , "ciudad"
+  "12345678-9" , "pais" , "ciudad" , 0
 ) ;

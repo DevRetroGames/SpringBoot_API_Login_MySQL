@@ -47,7 +47,7 @@ cors:
   
 image:
   format: .jpg
-  type: image/png
+  type: image/jpeg
           
 sftp:
   host: ${ftp.host}

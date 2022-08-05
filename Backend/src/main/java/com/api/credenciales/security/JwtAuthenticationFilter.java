@@ -53,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             ;
       
     } else {
-      log.info( "Token not valid." ) ;
+      log.warn( "Token not valid." ) ;
       // here throw
     }
     
@@ -75,6 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.warn( "Invalid JWT token." ) ;
         // here throw
       }
+      
       
       
     } else {

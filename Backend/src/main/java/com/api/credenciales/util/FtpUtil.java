@@ -1,13 +1,10 @@
 package com.api.credenciales.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.api.credenciales.exceptions.CustomServerException;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
@@ -30,7 +27,9 @@ import lombok.extern.log4j.Log4j2;
 public class FtpUtil {
   
   
-  private static final String KEYCHECKING = "StrictHostKeyChecking" ;
+  @Autowired
+  private ImageUtil imageUtil ;
+  
   
   
   @Value( "${sftp.host}" )
@@ -57,34 +56,58 @@ public class FtpUtil {
   @Value( "${sftp.timeout.channel}" )
   private Integer sftpTimeoutChannel ;
   
+  @Value( "${image.format}" )
+  private String imageFormat ;
   
   
-  public void downloadImage( String imageName ) {
+  
+  private static final String KEYCHECKING = "StrictHostKeyChecking" ;
+  
+  
+  
+  public boolean downloadImage( String imageName ) {
     
     ChannelSftp channelSftp = this.createChannelSftp() ;
     
+    if( channelSftp == null ) {
+      throw new CustomServerException( "Error en la conexión con el servidor ftp." ) ;
+    }
+    
+    
+    
     try {
       
-      File file = new File( this.sftpDirLocal + imageName ) ;
-      OutputStream outputStream = new FileOutputStream( file ) ;
+      channelSftp.get( this.sftpUpload + imageName , this.sftpDirLocal + imageName ) ;
       
-      channelSftp.get( this.sftpUpload + imageName , outputStream ) ;
+      return true ;
       
-      file.createNewFile() ;
+    } catch( SftpException e ) {
       
-    } catch( SftpException | IOException e ) {
-      log.error( "Error download image" ) ;
+      log.error( "Error al descargar la imagen del servidor ftp." ) ;
+      
     } finally {
+      
       this.disconnectChannelSftp( channelSftp ) ;
+      
     }
+    
+    
+    return false ;
+    
     
   }
   
   
   
-  public void uploadImage( String imageName , String name ) {
+  public boolean uploadImage( String imageName , String name ) {
     
     ChannelSftp channelSftp = this.createChannelSftp() ;
+    
+    if( channelSftp == null ) {
+      throw new CustomServerException( "Error en la conexión con el servidor ftp." ) ;
+    }
+    
+    
     
     try {
       
@@ -93,35 +116,62 @@ public class FtpUtil {
         this.sftpUpload + imageName , 
         this.sftpUpload + name ) ;
       
+      return true ;
+      
     } catch( SftpException e ) {
+      
       log.error( "Error upload image" ) ;
+      
     } finally {
+      
       this.disconnectChannelSftp( channelSftp ) ;
+      
     }
+    
+    
+    return false ;
+    
     
   }
   
   
   
-  public void deleteImage( String imageName ) {
+  public boolean deleteImage( String imageName ) {
     
     ChannelSftp channelSftp = this.createChannelSftp() ;
+    
+    if( channelSftp == null ) {
+      throw new CustomServerException( "Error en la conexión con el servidor ftp." ) ;
+    }
+    
+    
     
     try {
       
       channelSftp.rm( this.sftpUpload + imageName ) ;
       
+      return true ;
+      
     } catch( SftpException e ) {
-      log.error( "Error download image" ) ;
+      
+      log.error( "Error delete image" ) ;
+      
     } finally {
+      
       this.disconnectChannelSftp( channelSftp ) ;
+      
     }
+    
+    
+    return false ;
+    
     
   }
   
   
   
   private ChannelSftp createChannelSftp() {
+    
     
     try {
       
@@ -142,18 +192,22 @@ public class FtpUtil {
       
       return (ChannelSftp) channel ;
       
-      
     } catch( JSchException e ) {
+      
       log.error( "Create ChannelSftp error" ) ;
+      
     }
     
+    
     return null ;
+    
     
   }
   
   
   
   private void disconnectChannelSftp( ChannelSftp channelSftp ) {
+    
     
     try {
       
@@ -173,6 +227,8 @@ public class FtpUtil {
       log.error( "SFTP disconnect error" ) ;
     }
     
+    
   }
+  
   
 }

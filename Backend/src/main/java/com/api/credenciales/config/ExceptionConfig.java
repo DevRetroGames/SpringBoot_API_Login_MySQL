@@ -23,6 +23,9 @@ import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import com.api.credenciales.dto.ApiResponse;
+import com.api.credenciales.exceptions.CustomServerException;
+import com.api.credenciales.exceptions.CustomUnsupportedMediaType;
+import com.api.credenciales.exceptions.FileNotFoundException;
 import com.api.credenciales.exceptions.NotFoundException;
 
 @ControllerAdvice( annotations = RestController.class )
@@ -88,7 +91,6 @@ public class ExceptionConfig {
 		
 	    Map< String , Object >  map = new HashMap<>() ;
 	    
-	    map.put( "error" , "Request Error" ) ;
 	    map.put( "cause" , ex.getMessage() ) ;
 	    map.put( "code" , HttpStatus.BAD_REQUEST.value() ) ;
 	    
@@ -107,7 +109,6 @@ public class ExceptionConfig {
     
       Map< String , Object >  map = new HashMap<>() ;
       
-      map.put( "error" , "Request Error" ) ;
       map.put( "cause" , ex.getMessage() ) ;
       map.put( "code" , HttpStatus.BAD_REQUEST.value() ) ;
       
@@ -126,9 +127,59 @@ public class ExceptionConfig {
     
       Map< String , Object >  map = new HashMap<>() ;
       
-      map.put( "error" , "Request Error" ) ;
       map.put( "cause" , ex.getMessage() ) ;
       map.put( "code" , HttpStatus.INTERNAL_SERVER_ERROR.value() ) ;
+      
+      return map ;
+      
+  }
+	
+	
+	
+	@ExceptionHandler({ 
+	  FileNotFoundException.class 
+  })
+  @ResponseStatus( value = HttpStatus.NOT_FOUND )
+  public @ResponseBody Map< String , Object > handleFileNotFoundException( Exception e ) {
+    
+      Map< String , Object >  map = new HashMap<>() ;
+      
+      map.put( "cause" , e.getMessage() ) ;
+      map.put( "code" , HttpStatus.NOT_FOUND.value() ) ;
+      
+      return map ;
+      
+  }
+	
+	
+	
+	@ExceptionHandler({ 
+	  CustomServerException.class 
+  })
+  @ResponseStatus( value = HttpStatus.INTERNAL_SERVER_ERROR )
+  public @ResponseBody Map< String , Object > handleCustomServerException( Exception e ) {
+    
+      Map< String , Object >  map = new HashMap<>() ;
+      
+      map.put( "cause" , e.getMessage() ) ;
+      map.put( "code" , HttpStatus.INTERNAL_SERVER_ERROR.value() ) ;
+      
+      return map ;
+      
+  }
+	
+	
+	
+	@ExceptionHandler({ 
+	  CustomUnsupportedMediaType.class 
+  })
+  @ResponseStatus( value = HttpStatus.UNSUPPORTED_MEDIA_TYPE )
+  public @ResponseBody Map< String , Object > handleCustomUnsupportedMediaType( Exception e ) {
+    
+      Map< String , Object >  map = new HashMap<>() ;
+      
+      map.put( "cause" , e.getMessage() ) ;
+      map.put( "code" , HttpStatus.UNSUPPORTED_MEDIA_TYPE.value() ) ;
       
       return map ;
       

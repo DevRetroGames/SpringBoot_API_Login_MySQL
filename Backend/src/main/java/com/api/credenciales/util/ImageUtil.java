@@ -31,26 +31,29 @@ public class ImageUtil {
   
   public InputStreamResource downloadImage( String imageName ) {
     
-    File file = null ;
-    InputStreamResource inputStreamResource = null ;
+    File file = new File( this.sftpDirLocal + imageName ) ;
+    
+    
     
     try {
       
-      file = new File( this.sftpDirLocal + imageName ) ;
-      inputStreamResource 
-        = new InputStreamResource( new FileInputStream( file ) ) ;
+      return new InputStreamResource( new FileInputStream( file ) ) ;
       
     } catch( FileNotFoundException e ) {
-      log.info( "error el descargar la imagen." ) ;
+      
+      log.info( "Imagen no entrada en directorio local." ) ;
+      
     }
     
-    return inputStreamResource ;
+    
+    return null ;
+    
     
   }
   
   
   
-  public void saveImage( MultipartFile image ) {
+  public boolean saveImage( MultipartFile image ) {
     
     try {
       
@@ -61,9 +64,17 @@ public class ImageUtil {
             StandardCopyOption.REPLACE_EXISTING ) 
         ;
       
+      return true ;
+      
     } catch( IOException e ) {
+      
       log.info( "error al guardar la imagen en la carpeta local." ) ;
+      
     }
+    
+    
+    return false ;
+    
     
   }
   
@@ -71,27 +82,35 @@ public class ImageUtil {
   
   public boolean deleteImage( String imageName ) {
     
-    boolean isDeleteImage = false ;
-    
     Path path = Paths.get( this.sftpDirLocal + imageName ) ;
     
+    
+    
     try {
-      isDeleteImage = Files.deleteIfExists( path ) ;
-    } catch (IOException e) {
+      
+      return Files.deleteIfExists( path ) ;
+      
+    } catch( IOException e ) {
+      
       log.info( "error al eliminar la imagen en la carpeta local." ) ;
+      
     }
     
-    return isDeleteImage ;
+    
+    return false ;
+    
     
   }
+  
   
   
   public boolean imageType( MultipartFile image ) {
     
-    return image.getContentType().equals( this.imageType ) ;
+    String type = image.getContentType() ;
+    
+    return type != null ? type.equals( this.imageType ) : null ;
     
   }
-  
   
   
 }

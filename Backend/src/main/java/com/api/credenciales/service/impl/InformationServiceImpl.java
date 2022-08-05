@@ -1,4 +1,4 @@
-package com.api.credenciales.serviceImpl;
+package com.api.credenciales.service.impl;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;

@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS.INFORMATIONS (
     city VARCHAR( 255 ) ,
     
     -- user image 
-    image VARCHAR( 255 ) DEFAULT 'avatar.png' NOT NULL ,
+    image BOOLEAN DEFAULT 0 ,
     
     -- dates
     create_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
