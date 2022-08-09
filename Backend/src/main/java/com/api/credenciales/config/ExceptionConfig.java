@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import com.api.credenciales.dto.ApiResponse;
+import com.api.credenciales.exceptions.CustomNotFoundException;
 import com.api.credenciales.exceptions.CustomServerException;
 import com.api.credenciales.exceptions.CustomUnsupportedMediaType;
 import com.api.credenciales.exceptions.FileNotFoundException;
@@ -32,7 +33,9 @@ import com.api.credenciales.exceptions.NotFoundException;
 public class ExceptionConfig {
   
   
-	@ExceptionHandler({ NotFoundException.class })
+	@ExceptionHandler({ 
+	  NotFoundException.class 
+	})
 	public ResponseEntity<?> notFoundException( Exception e ) {
 	  
 	  Map< String , Object > map = new HashMap<>() ;
@@ -40,7 +43,7 @@ public class ExceptionConfig {
 		String message = e.getMessage() ;
 		ApiResponse apiResponse = new ApiResponse( message ) ;
 		
-		map.put( "message" , apiResponse.getMessage() ) ;
+		map.put( "message" , apiResponse ) ;
 		map.put( "code" , HttpStatus.NOT_FOUND.value() ) ;
 		
 		return ResponseEntity
@@ -52,7 +55,9 @@ public class ExceptionConfig {
 	
 	
 	
-	@ExceptionHandler({ MethodArgumentNotValidException.class })
+	@ExceptionHandler({ 
+	  MethodArgumentNotValidException.class 
+	})
 	public ResponseEntity< Map< String , Object > > valid( 
 	    MethodArgumentNotValidException ex ) {
 		
@@ -62,7 +67,7 @@ public class ExceptionConfig {
 		  .getBindingResult()
 		  .getAllErrors()
 		  .forEach( 
-		    ( error ) -> {
+		    error -> {
 			
     			String fieldName = ( (FieldError) error ).getField() ;
     			String message = error.getDefaultMessage() ;
@@ -137,7 +142,8 @@ public class ExceptionConfig {
 	
 	
 	@ExceptionHandler({ 
-	  FileNotFoundException.class 
+	  FileNotFoundException.class ,
+	  CustomNotFoundException.class 
   })
   @ResponseStatus( value = HttpStatus.NOT_FOUND )
   public @ResponseBody Map< String , Object > handleFileNotFoundException( Exception e ) {

@@ -73,7 +73,8 @@ public class UpdateHelper {
 		
 		Information informationSave = this.iInformationRepository.save( informationEntity ) ;
 		
-		InformationDTO informationSaveDTO = mapperUtil.informationEntityToInformationDTO( informationSave ) ; 
+		InformationDTO informationSaveDTO = 
+		    mapperUtil.informationEntityToInformationDTO( informationSave ) ; 
 		
 		return CompletableFuture.completedFuture( informationSaveDTO ) ;
 		

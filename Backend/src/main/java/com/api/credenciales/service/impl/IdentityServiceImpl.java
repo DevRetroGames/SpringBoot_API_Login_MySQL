@@ -1,9 +1,9 @@
 package com.api.credenciales.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +17,13 @@ import com.api.credenciales.dto.IdentityDTO;
 import com.api.credenciales.dto.InformationDTO;
 import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.dto.RoleDTO;
+import com.api.credenciales.exceptions.CustomNotFoundException;
 import com.api.credenciales.helper.CreateHelper;
 import com.api.credenciales.helper.FindAll;
 import com.api.credenciales.helper.FindByIdHelper;
 import com.api.credenciales.helper.UpdateHelper;
 import com.api.credenciales.model.Identity;
 import com.api.credenciales.model.Information;
-import com.api.credenciales.model.Role;
 import com.api.credenciales.repository.IIdentityRepository;
 import com.api.credenciales.service.IIdentityService;
 import com.api.credenciales.util.MapperUtil;
@@ -36,6 +36,9 @@ public class IdentityServiceImpl implements IIdentityService {
 	
 	@Autowired
 	private IIdentityRepository iIdentityRepository ;
+	
+	@Autowired
+	private RoleServiceImpl roleServiceImpl ;
 	
 	@Autowired
 	private CreateHelper createHelper ;
@@ -72,10 +75,14 @@ public class IdentityServiceImpl implements IIdentityService {
 	@Override
 	public IdentityDTO getIdentity( UUID identityID ) {
 		
-		CompletableFuture< Identity > identification = 
-				this.findByIdHelper.getIdentityById( identityID ) ;
+		Optional< Identity > identity = 
+		    this.findByIdHelper.getIdentityById( identityID ).join() ;
+    
+    if( identity.isEmpty() ) {
+      throw new CustomNotFoundException( "Identity not found." ) ;
+    }
 		
-		return mapperUtil.identityEntityToIdentityDTO( identification.join() ) ;
+		return mapperUtil.identityEntityToIdentityDTO( identity.get() ) ;
 		
 	}
 
@@ -87,22 +94,20 @@ public class IdentityServiceImpl implements IIdentityService {
 			UUID informationID , 
 			List< UUID > listRoleID ) {
 		
-		CompletableFuture< Information > information = 
-				this.findByIdHelper.getInformationById( informationID ) ;	
-		
-		Set< CompletableFuture< Role > > listRole = 
-				listRoleID
-				.stream()
-				.map( role -> this.findByIdHelper.getRoleById( role ) )
-				.collect( Collectors.toSet() ) ;
-		
-		InformationDTO informationDTO = 
-				this.mapperUtil.informationEntityToInformationDTO( information.join() ) ;
+		Optional< Information > information = 
+        this.findByIdHelper.getInformationById( informationID ).join() ;
+    
+    if( information.isEmpty() ) {
+      throw new CustomNotFoundException( "Identity not found." ) ;
+    }
+    
+    InformationDTO informationDTO = 
+        this.mapperUtil.informationEntityToInformationDTO( information.get() ) ;
 		
 		Set< RoleDTO > listRoleDTO = 
-				listRole
+				listRoleID
 				.stream()
-				.map( role -> this.mapperUtil.roleEntityToRoleDTO( role.join() ) )
+				.map( role -> this.roleServiceImpl.getRole( role ) )
 				.collect( Collectors.toSet() ) ;
 		
 		return this.createHelper.createIdentity( 
@@ -114,25 +119,25 @@ public class IdentityServiceImpl implements IIdentityService {
 	
 	@Override
 	public IdentityDTO updateIdentity( 
-			UUID identityID , IdentityDTO identityDTO , List< UUID > listRoleID ) {
+			UUID identityID , 
+			IdentityDTO identityDTO , 
+			List< UUID > listRoleID ) {
 		
-		CompletableFuture< Identity > identity = 
-				this.findByIdHelper.getIdentityById( identityID ) ;
-		
-		List< CompletableFuture< Role > > listRole = 
-				listRoleID
-				.stream()
-				.map( role -> this.findByIdHelper.getRoleById( role ) )
-				.collect( Collectors.toList() ) ;
+	  Optional< Identity > identity = 
+        this.findByIdHelper.getIdentityById( identityID ).join() ;
+    
+    if( identity.isEmpty() ) {
+      throw new CustomNotFoundException( "Identity not found." ) ;
+    }
 		
 		List< RoleDTO > listRoleDTO = 
-				listRole
+				listRoleID
 				.stream()
-				.map( role -> this.mapperUtil.roleEntityToRoleDTO( role.join() ) )
+				.map( role -> this.roleServiceImpl.getRole( role ) )
 				.collect( Collectors.toList() ) ;
 		
 		return this.updateHelper.updateIdentity( 
-				identity.join() , identityDTO , listRoleDTO ).join() ;
+				identity.get() , identityDTO , listRoleDTO ).join() ;
 		
 	}
 	
@@ -141,10 +146,14 @@ public class IdentityServiceImpl implements IIdentityService {
 	@Override
 	public void deleteIdentity( UUID identityID ) {
 		
-		CompletableFuture< Identity > identity = 
-				this.findByIdHelper.getIdentityById( identityID ) ;
+		Optional< Identity > identity = 
+        this.findByIdHelper.getIdentityById( identityID ).join() ;
+    
+    if( identity.isEmpty() ) {
+      throw new CustomNotFoundException( "Identity not found." ) ;
+    }
 		
-		this.iIdentityRepository.delete( identity.join() ) ;
+		this.iIdentityRepository.delete( identity.get() ) ;
 		
 	}
 

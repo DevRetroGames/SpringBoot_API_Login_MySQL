@@ -15,10 +15,16 @@ import com.api.credenciales.exceptions.AsyncExceptionHandler;
 @Configuration
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {
+  
+  
+  private static final Integer MINIMUM_CORE = 1 ;
+  
+  
+  @Autowired
+  private AsyncExceptionHandler asyncExceptionHandler ;
 	
-	@Autowired
-	private AsyncExceptionHandler asyncExceptionHandler ;
-
+  
+  
 	@Bean( name = "asyncExecutor" )
 	public Executor asyncExecutor() {
 		
@@ -34,21 +40,30 @@ public class AsyncConfig implements AsyncConfigurer {
 		
 	}
 	
+	
+	
 	@Override
 	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
 	    return this.asyncExceptionHandler ;
 	}
 	
+	
+	
 	private int numberMinCore() {
-		return 1 ;
+		return MINIMUM_CORE ;
 	}
+	
+	
 	
 	private int numberMaxCore() {
 		return Runtime.getRuntime().availableProcessors() / 2 ;
 	}
 	
+	
+	
 	private int totalNumber() {
 		return Runtime.getRuntime().availableProcessors() - 1 ;
 	}
+	
 	
 }

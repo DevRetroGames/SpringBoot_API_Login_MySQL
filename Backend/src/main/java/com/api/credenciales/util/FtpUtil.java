@@ -2,6 +2,7 @@ package com.api.credenciales.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import com.api.credenciales.exceptions.CustomServerException;
@@ -26,6 +27,9 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class FtpUtil {
   
+  
+  @Autowired
+  private MessageSource messageSource ;
   
   @Autowired
   private ImageUtil imageUtil ;
@@ -70,7 +74,7 @@ public class FtpUtil {
     ChannelSftp channelSftp = this.createChannelSftp() ;
     
     if( channelSftp == null ) {
-      throw new CustomServerException( "Error en la conexión con el servidor ftp." ) ;
+      throw new CustomServerException( "Failed connection to sftp server." ) ;
     }
     
     
@@ -83,7 +87,7 @@ public class FtpUtil {
       
     } catch( SftpException e ) {
       
-      log.error( "Error al descargar la imagen del servidor ftp." ) ;
+      log.error( "Error downloading file from SFTP server." ) ;
       
     } finally {
       
@@ -104,7 +108,7 @@ public class FtpUtil {
     ChannelSftp channelSftp = this.createChannelSftp() ;
     
     if( channelSftp == null ) {
-      throw new CustomServerException( "Error en la conexión con el servidor ftp." ) ;
+      throw new CustomServerException( "Failed connect to sftp server." ) ;
     }
     
     
@@ -120,7 +124,7 @@ public class FtpUtil {
       
     } catch( SftpException e ) {
       
-      log.error( "Error upload image" ) ;
+      log.error( "Error upload image." ) ;
       
     } finally {
       
@@ -141,7 +145,7 @@ public class FtpUtil {
     ChannelSftp channelSftp = this.createChannelSftp() ;
     
     if( channelSftp == null ) {
-      throw new CustomServerException( "Error en la conexión con el servidor ftp." ) ;
+      throw new CustomServerException( "Failed connect to sftp server." ) ;
     }
     
     
@@ -154,7 +158,7 @@ public class FtpUtil {
       
     } catch( SftpException e ) {
       
-      log.error( "Error delete image" ) ;
+      log.error( "Error delete image." ) ;
       
     } finally {
       
@@ -194,7 +198,7 @@ public class FtpUtil {
       
     } catch( JSchException e ) {
       
-      log.error( "Create ChannelSftp error" ) ;
+      log.error( "Create ChannelSftp error." ) ;
       
     }
     
@@ -224,7 +228,7 @@ public class FtpUtil {
       }
       
     } catch( Exception e ) {
-      log.error( "SFTP disconnect error" ) ;
+      log.error( "SFTP disconnect error." ) ;
     }
     
     

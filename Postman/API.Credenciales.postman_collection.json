@@ -335,6 +335,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -360,7 +365,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -382,6 +393,11 @@
 								{
 									"key": "roleID",
 									"value": "1c4b3830-271f-45e3-ae46-a822eb9e0f3a"
+								},
+								{
+									"key": "roleID",
+									"value": "d42d3098-135d-11ed-894e-0242ac120003",
+									"disabled": true
 								}
 							]
 						}
@@ -485,6 +501,18 @@
 			"item": [
 				{
 					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const json = JSON.parse( responseBody ) ;",
+									"pm.environment.set( \"TOKEN\" , `Bearer ${json.token}` ) ;"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -507,6 +535,107 @@
 							],
 							"path": [
 								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "get single image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API-URL}}{{API-IMAGE}}/image?imageName=emai",
+							"host": [
+								"{{API-URL}}{{API-IMAGE}}"
+							],
+							"path": [
+								"image"
+							],
+							"query": [
+								{
+									"key": "imageName",
+									"value": "emai"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/dev/Imágenes/761.jpg"
+								},
+								{
+									"key": "name",
+									"value": "email",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API-URL}}{{API-IMAGE}}/",
+							"host": [
+								"{{API-URL}}{{API-IMAGE}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete image",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API-URL}}{{API-IMAGE}}/?imageName=email",
+							"host": [
+								"{{API-URL}}{{API-IMAGE}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "imageName",
+									"value": "email"
+								}
 							]
 						}
 					},

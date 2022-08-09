@@ -41,7 +41,7 @@ public class ImageUtil {
       
     } catch( FileNotFoundException e ) {
       
-      log.info( "Imagen no entrada en directorio local." ) ;
+      log.info( "Image not entered in local directory." ) ;
       
     }
     
@@ -68,7 +68,7 @@ public class ImageUtil {
       
     } catch( IOException e ) {
       
-      log.info( "error al guardar la imagen en la carpeta local." ) ;
+      log.info( "Error saving image to local folder." ) ;
       
     }
     
@@ -92,7 +92,7 @@ public class ImageUtil {
       
     } catch( IOException e ) {
       
-      log.info( "error al eliminar la imagen en la carpeta local." ) ;
+      log.info( "Failed to delete image in local folder." ) ;
       
     }
     

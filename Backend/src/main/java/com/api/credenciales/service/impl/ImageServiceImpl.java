@@ -38,7 +38,7 @@ public class ImageServiceImpl implements IImageService {
   public InputStreamResource getImage( String imageName ) {
     
     if( !this.ftpUtil.downloadImage( imageName + this.imageFormat ) ) {
-      throw new FileNotFoundException( "Imagen no encontrada en el servidor ftp." ) ;
+      throw new FileNotFoundException( "Image not found on SFTP server." ) ;
     }
     
     
@@ -46,7 +46,7 @@ public class ImageServiceImpl implements IImageService {
         this.imageUtil.downloadImage( imageName + this.imageFormat ) ;
     
     if( inputStreamResource == null ) {
-      throw new FileNotFoundException( "Imagen no encontrada en la carpeta local." ) ;
+      throw new FileNotFoundException( "Image not found in local folder." ) ;
     }
     
     
@@ -61,23 +61,23 @@ public class ImageServiceImpl implements IImageService {
     
     if( !this.imageUtil.imageType( image ) ) {
       log.info( "tipo no permitido." ) ;
-      throw new CustomUnsupportedMediaType( "Tipo no permitido." ) ;
+      throw new CustomUnsupportedMediaType( "Type not allowed." ) ;
     }
     
     
     if( !this.imageUtil.saveImage( image ) ) {
-      throw new CustomServerException( "Error en la conexión con la carpeta local." ) ;
+      throw new CustomServerException( "Error with local folder." ) ;
     }
     
     
     if( !this.ftpUtil.uploadImage( image.getOriginalFilename() , name + this.imageFormat ) ) {
-      throw new CustomServerException( "Error en la conexión con el servidor ftp." ) ;
+      throw new CustomServerException( "Failed connect to SFTP server." ) ;
     }
     
     
     if( !this.imageUtil.deleteImage( image.getOriginalFilename() ) ) {
-      log.info( "error al eliminar la imagen." ) ;
-      throw new CustomServerException( "Error al eliminar la imagen temporal." ) ;
+      log.info( "Error deleting image." ) ;
+      throw new CustomServerException( "Failed to delete temporary image." ) ;
     }
     
   }
@@ -88,8 +88,8 @@ public class ImageServiceImpl implements IImageService {
   public void deleteIdentity( String imageName ) {
     
     if( !this.ftpUtil.deleteImage( imageName + this.imageFormat ) ) {
-      log.info( "Imagen no encontrada en el servidor ftp." ) ;
-      throw new FileNotFoundException( "Imagen no encontrada en el servidor ftp." ) ;
+      log.info( "Image not found on SFTP server." ) ;
+      throw new FileNotFoundException( "Image not found on SFTP server." ) ;
     }
     
   }

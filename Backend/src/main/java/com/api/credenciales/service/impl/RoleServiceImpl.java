@@ -1,7 +1,7 @@
 package com.api.credenciales.service.impl;
 
+import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.api.credenciales.dto.PageDTO;
 import com.api.credenciales.dto.RoleDTO;
+import com.api.credenciales.exceptions.CustomNotFoundException;
 import com.api.credenciales.helper.CreateHelper;
 import com.api.credenciales.helper.FindAll;
 import com.api.credenciales.helper.FindByIdHelper;
@@ -65,9 +66,13 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public RoleDTO getRole( UUID roleID ) {	
 		
-		CompletableFuture< Role > role = this.findByIdHelper.getRoleById( roleID ) ;
+	  Optional< Role > role = this.findByIdHelper.getRoleById( roleID ).join() ;
+	  
+	  if( role.isEmpty() ) {
+	    throw new CustomNotFoundException( "Role not found." ) ;
+	  }
 		
-		return mapperUtil.roleEntityToRoleDTO( role.join() ) ;
+		return mapperUtil.roleEntityToRoleDTO( role.get() ) ;
 		
 	}
 	
@@ -85,9 +90,13 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public RoleDTO updateRole( UUID roleID , RoleDTO roleDTO ) {
 		
-		CompletableFuture< Role > role = this.findByIdHelper.getRoleById( roleID ) ;
+	  Optional< Role > role = this.findByIdHelper.getRoleById( roleID ).join() ;
+    
+    if( role.isEmpty() ) {
+      throw new CustomNotFoundException( "Role not found." ) ;
+    }
 		
-		return this.updateHelper.updateRole( role.join() , roleDTO ).join() ;
+		return this.updateHelper.updateRole( role.get() , roleDTO ).join() ;
 		
 	} 
 	
@@ -96,9 +105,13 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public void deleteRole( UUID roleID ) {
 		
-		CompletableFuture< Role > role = this.findByIdHelper.getRoleById( roleID ) ;
+	  Optional< Role > role = this.findByIdHelper.getRoleById( roleID ).join() ;
+    
+    if( role.isEmpty() ) {
+      throw new CustomNotFoundException( "Role not found." ) ;
+    }
 		
-		this.iRoleRepository.delete( role.join() ) ;
+		this.iRoleRepository.delete( role.get() ) ;
 		
 	} 
 

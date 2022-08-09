@@ -1,7 +1,7 @@
 package com.api.credenciales.service.impl;
 
+import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.api.credenciales.dto.InformationDTO;
 import com.api.credenciales.dto.PageDTO;
+import com.api.credenciales.exceptions.CustomNotFoundException;
 import com.api.credenciales.helper.CreateHelper;
 import com.api.credenciales.helper.FindAll;
 import com.api.credenciales.helper.FindByIdHelper;
@@ -65,9 +66,14 @@ public class InformationServiceImpl implements IInformationService {
 	@Override
 	public InformationDTO getInformation( UUID informationID ) {		
 		
-		CompletableFuture< Information > information = this.findByIdHelper.getInformationById( informationID ) ;
+	  Optional< Information > information = 
+		    this.findByIdHelper.getInformationById( informationID ).join() ;
+    
+    if( information.isEmpty() ) {
+      throw new CustomNotFoundException( "Identity not found." ) ;
+    }
 		
-		return mapperUtil.informationEntityToInformationDTO( information.join() ) ;
+		return mapperUtil.informationEntityToInformationDTO( information.get() ) ;
 		
 	}
 
@@ -85,9 +91,17 @@ public class InformationServiceImpl implements IInformationService {
 	@Override
 	public InformationDTO updateInformation( UUID informationID , InformationDTO informationDTO ) {
 		
-		CompletableFuture< Information > information = this.findByIdHelper.getInformationById( informationID ) ;
+	  Optional< Information > information = 
+        this.findByIdHelper.getInformationById( informationID ).join() ;
+    
+    if( information.isEmpty() ) {
+      throw new CustomNotFoundException( "Identity not found." ) ;
+    }
 		
-		return this.updateHelper.updateInformation( information.join() , informationDTO ).join() ;
+		return this.updateHelper
+		    .updateInformation( information.get() , informationDTO )
+		    .join() 
+		    ;
 		
 	}
 
@@ -96,10 +110,16 @@ public class InformationServiceImpl implements IInformationService {
 	@Override
 	public void deleteInformation( UUID informationID ) {
 		
-		CompletableFuture< Information > information = this.findByIdHelper.getInformationById( informationID ) ;
+	  Optional< Information > information = 
+        this.findByIdHelper.getInformationById( informationID ).join() ;
+    
+    if( information.isEmpty() ) {
+      throw new CustomNotFoundException( "Identity not found." ) ;
+    }
 		
-		this.iInformationRepository.delete( information.join() ) ;
+		this.iInformationRepository.delete( information.get() ) ;
 		
 	}
+	
 
 }
