@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.api.credenciales.exceptions.NotFoundException;
+import com.api.credenciales.exceptions.CustomNotFoundException;
 import com.api.credenciales.model.Identity;
 import com.api.credenciales.model.Information;
 import com.api.credenciales.repository.IIdentityRepository;
@@ -48,7 +48,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     Information information =
         this.informationRepository
             .findByEmail( username )
-            .orElseThrow( () -> new NotFoundException( "User" , "email" , username ) )
+            .orElseThrow( () -> new CustomNotFoundException( "User not found." ) )
             ;
     
     Identity identity =
@@ -63,11 +63,11 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
       
       identity
         .getListRoles()
-        .forEach( role -> {
+        .forEach( role -> 
           authorities
             .add( 
                 new SimpleGrantedAuthority( 
-                    role.getName() ) ) ; })
+                    role.getName() ) ) )
         ;
       
       

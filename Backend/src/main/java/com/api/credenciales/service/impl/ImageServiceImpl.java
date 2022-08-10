@@ -14,11 +14,8 @@ import com.api.credenciales.service.IImageService;
 import com.api.credenciales.util.FtpUtil;
 import com.api.credenciales.util.ImageUtil;
 
-import lombok.extern.log4j.Log4j2;
-
 @Service
 @Qualifier( "ImageServiceImpl" )
-@Log4j2
 public class ImageServiceImpl implements IImageService {
   
   
@@ -60,7 +57,6 @@ public class ImageServiceImpl implements IImageService {
   public void uploadImage( MultipartFile image , String name ) {
     
     if( !this.imageUtil.imageType( image ) ) {
-      log.info( "tipo no permitido." ) ;
       throw new CustomUnsupportedMediaType( "Type not allowed." ) ;
     }
     
@@ -76,7 +72,6 @@ public class ImageServiceImpl implements IImageService {
     
     
     if( !this.imageUtil.deleteImage( image.getOriginalFilename() ) ) {
-      log.info( "Error deleting image." ) ;
       throw new CustomServerException( "Failed to delete temporary image." ) ;
     }
     
@@ -88,7 +83,6 @@ public class ImageServiceImpl implements IImageService {
   public void deleteIdentity( String imageName ) {
     
     if( !this.ftpUtil.deleteImage( imageName + this.imageFormat ) ) {
-      log.info( "Image not found on SFTP server." ) ;
       throw new FileNotFoundException( "Image not found on SFTP server." ) ;
     }
     

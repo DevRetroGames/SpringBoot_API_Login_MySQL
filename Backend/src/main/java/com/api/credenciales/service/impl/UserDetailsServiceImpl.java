@@ -7,8 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.api.credenciales.exceptions.NotFoundException;
-import com.api.credenciales.model.Identity;
+import com.api.credenciales.exceptions.CustomNotFoundException;
 import com.api.credenciales.model.Information;
 import com.api.credenciales.repository.IIdentityRepository;
 import com.api.credenciales.repository.IInformationRepository;
@@ -34,19 +33,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.informationRepository
             .findByEmail( username )
             .orElseThrow( () -> 
-                new NotFoundException( "User" , "email" , username ) 
+                new CustomNotFoundException( "User not found." ) 
               )
             ;
     
-    Identity identity =
-        this.identityRepository
-            .findByInformation( information )
-            .orElseThrow( () -> 
-                new UsernameNotFoundException( "User not found." ) 
-              )
-            ;
-    
-    return identity ;
+    return this.identityRepository
+               .findByInformation( information )
+               .orElseThrow( () -> 
+                   new UsernameNotFoundException( "User not found." ) 
+                 )
+               ;
     
   }
   

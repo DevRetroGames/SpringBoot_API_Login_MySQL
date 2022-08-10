@@ -13,6 +13,10 @@ jpa:
 cor:
   host: localhost
   port: 8081
+  
+e-jwt:
+  expired: 3600000
+  secret: secret
 
 ftp:
   host: 127.0.0.1

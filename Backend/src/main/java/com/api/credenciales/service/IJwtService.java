@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface IJwtService {
   
-  //public String generateToken( String username , List< String > roles ) ;
-  
   public String generateToken( UserDetails userDetails ) ;
   
   public boolean isValidToken( String token ) ;

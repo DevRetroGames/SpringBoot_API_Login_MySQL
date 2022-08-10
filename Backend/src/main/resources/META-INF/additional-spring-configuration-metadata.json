@@ -73,5 +73,50 @@
     "name": "image.type",
     "type": "java.lang.String",
     "description": "A description for 'image.type'"
+  },
+  {
+    "name": "jwt.bearer",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.bearer'"
+  },
+  {
+    "name": "jwt.expired",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.expired'"
+  },
+  {
+    "name": "jwt.roles.full",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.roles.full'"
+  },
+  {
+    "name": "jwt.roles.onlyRead",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.roles.onlyRead'"
+  },
+  {
+    "name": "jwt.roles.onlyInsert",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.roles.onlyInsert'"
+  },
+  {
+    "name": "jwt.roles.onlyUpdate",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.roles.onlyUpdate'"
+  },
+  {
+    "name": "jwt.roles.readInsert",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.roles.readInsert'"
+  },
+  {
+    "name": "jwt.roles.readUpdate",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.roles.readUpdate'"
+  },
+  {
+    "name": "jwt.roles.insertUpdate",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.roles.insertUpdate'"
   }
 ]}

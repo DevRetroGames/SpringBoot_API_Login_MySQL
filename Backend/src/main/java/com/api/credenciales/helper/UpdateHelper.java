@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.api.credenciales.dto.IdentityDTO;
@@ -35,6 +36,10 @@ public class UpdateHelper {
 	
 	@Autowired
 	private MapperUtil mapperUtil ;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder ;
+	
 	
 	
 	@Async( "asyncExecutor" )
@@ -96,7 +101,7 @@ public class UpdateHelper {
 				.collect( Collectors.toSet() ) ; 
 		
 		identityEntity.setListRoles( listRoleEntity ) ;
-		identityEntity.setKeyword( identityDTOCopy.getKeyword() ) ;
+		identityEntity.setKeyword( this.passwordEncoder.encode( identityDTOCopy.getKeyword() ) ) ;
 		identityEntity.setStatus( identityDTOCopy.isStatus() ) ;
 		
 		Identity identitySave = this.iIdentityRepository.save( identityEntity ) ;

@@ -22,36 +22,16 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
-import com.api.credenciales.dto.ApiResponse;
 import com.api.credenciales.exceptions.CustomNotFoundException;
 import com.api.credenciales.exceptions.CustomServerException;
 import com.api.credenciales.exceptions.CustomUnsupportedMediaType;
 import com.api.credenciales.exceptions.FileNotFoundException;
-import com.api.credenciales.exceptions.NotFoundException;
 
 @ControllerAdvice( annotations = RestController.class )
 public class ExceptionConfig {
   
   
-	@ExceptionHandler({ 
-	  NotFoundException.class 
-	})
-	public ResponseEntity<?> notFoundException( Exception e ) {
-	  
-	  Map< String , Object > map = new HashMap<>() ;
-		
-		String message = e.getMessage() ;
-		ApiResponse apiResponse = new ApiResponse( message ) ;
-		
-		map.put( "message" , apiResponse ) ;
-		map.put( "code" , HttpStatus.NOT_FOUND.value() ) ;
-		
-		return ResponseEntity
-					.status( HttpStatus.NOT_FOUND )
-					.body( map ) 
-					;
-		
-	}
+  private static final String CAUSE = "cause" ;
 	
 	
 	
@@ -89,14 +69,16 @@ public class ExceptionConfig {
     UnsatisfiedServletRequestParameterException.class ,
     HttpRequestMethodNotSupportedException.class ,
     ServletRequestBindingException.class ,
-    HttpMessageNotReadableException.class
+    HttpMessageNotReadableException.class ,
+    MissingServletRequestPartException.class ,
+    MultipartException.class
 	})
 	@ResponseStatus( value = HttpStatus.BAD_REQUEST )
 	public @ResponseBody Map<String, Object> handleRequestException( Exception ex ) {
 		
 	    Map< String , Object >  map = new HashMap<>() ;
 	    
-	    map.put( "cause" , ex.getMessage() ) ;
+	    map.put( CAUSE , ex.getMessage() ) ;
 	    map.put( "code" , HttpStatus.BAD_REQUEST.value() ) ;
 	    
 	    return map ;
@@ -105,34 +87,18 @@ public class ExceptionConfig {
 	
 	
 	
-	@ExceptionHandler({ 
-	    MissingServletRequestPartException.class ,
-	    MultipartException.class
-	  })
-	@ResponseStatus( value = HttpStatus.BAD_REQUEST )
-  public @ResponseBody Map<String, Object> handleMultipartException( Exception ex ) {
-    
-      Map< String , Object >  map = new HashMap<>() ;
-      
-      map.put( "cause" , ex.getMessage() ) ;
-      map.put( "code" , HttpStatus.BAD_REQUEST.value() ) ;
-      
-      return map ;
-      
-  }
-	
-	
 	@ExceptionHandler({
 	  MaxUploadSizeExceededException.class ,
 	  FileSizeLimitExceededException.class ,
-	  IllegalStateException.class
+	  IllegalStateException.class ,
+	  CustomServerException.class
   })
   @ResponseStatus( value = HttpStatus.INTERNAL_SERVER_ERROR )
   public @ResponseBody Map<String, Object> handleMaxUploadSizeExceeded( Exception ex ) {
     
       Map< String , Object >  map = new HashMap<>() ;
       
-      map.put( "cause" , ex.getMessage() ) ;
+      map.put( CAUSE , ex.getMessage() ) ;
       map.put( "code" , HttpStatus.INTERNAL_SERVER_ERROR.value() ) ;
       
       return map ;
@@ -150,25 +116,8 @@ public class ExceptionConfig {
     
       Map< String , Object >  map = new HashMap<>() ;
       
-      map.put( "cause" , e.getMessage() ) ;
+      map.put( CAUSE , e.getMessage() ) ;
       map.put( "code" , HttpStatus.NOT_FOUND.value() ) ;
-      
-      return map ;
-      
-  }
-	
-	
-	
-	@ExceptionHandler({ 
-	  CustomServerException.class 
-  })
-  @ResponseStatus( value = HttpStatus.INTERNAL_SERVER_ERROR )
-  public @ResponseBody Map< String , Object > handleCustomServerException( Exception e ) {
-    
-      Map< String , Object >  map = new HashMap<>() ;
-      
-      map.put( "cause" , e.getMessage() ) ;
-      map.put( "code" , HttpStatus.INTERNAL_SERVER_ERROR.value() ) ;
       
       return map ;
       
@@ -184,7 +133,7 @@ public class ExceptionConfig {
     
       Map< String , Object >  map = new HashMap<>() ;
       
-      map.put( "cause" , e.getMessage() ) ;
+      map.put( CAUSE , e.getMessage() ) ;
       map.put( "code" , HttpStatus.UNSUPPORTED_MEDIA_TYPE.value() ) ;
       
       return map ;
@@ -193,37 +142,3 @@ public class ExceptionConfig {
 	
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

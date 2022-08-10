@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +22,8 @@ import com.api.credenciales.repository.IInformationRepository;
 import com.api.credenciales.repository.IRoleRepository;
 import com.api.credenciales.util.MapperUtil;
 
-import lombok.extern.log4j.Log4j2;
-
 @Component
 @Transactional
-@Log4j2
 public class CreateHelper {
 
 	
@@ -40,6 +38,9 @@ public class CreateHelper {
 	
 	@Autowired
 	private MapperUtil mapperUtil ;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder ;
 	
 	
 	
@@ -60,10 +61,14 @@ public class CreateHelper {
 	@Async( "asyncExecutor" )
 	public CompletableFuture< InformationDTO > createInformation( InformationDTO informationDTO ) {
 		
-		Information informationEntity = this.mapperUtil.informationDTOToInformationEntity( informationDTO ) ;
-		Information informationSave = this.iInformationRepository.save( informationEntity ) ;
+		Information informationEntity = 
+		    this.mapperUtil.informationDTOToInformationEntity( informationDTO ) ;
 		
-		InformationDTO informationSaveDTO = mapperUtil.informationEntityToInformationDTO( informationSave ) ;
+		Information informationSave = 
+		    this.iInformationRepository.save( informationEntity ) ;
+		
+		InformationDTO informationSaveDTO = 
+		    mapperUtil.informationEntityToInformationDTO( informationSave ) ;
 		
 		return CompletableFuture.completedFuture( informationSaveDTO ) ;
 		
@@ -77,6 +82,7 @@ public class CreateHelper {
 			InformationDTO informationDTO , 
 			Set< RoleDTO > listRoleDTO ) {
 		
+	  
 		Identity identityEntity = 
 				this.mapperUtil.identityDTOToIdentityEntity( identityDTO ) ;
 		
@@ -92,14 +98,16 @@ public class CreateHelper {
 				.collect( Collectors.toSet() ) 
 			) ;
 		
+		
+		identityEntity.setKeyword( passwordEncoder.encode( identityEntity.getKeyword() ) ) ;
 		identityEntity.setInformation( informationEntity ) ;
 		identityEntity.setListRoles( listRoleEntity ) ;
 		
-		Identity identitySave = this.iIdentityRepository.save( identityEntity ) ;
-		IdentityDTO identitySaveDTO = this.mapperUtil.identityEntityToIdentityDTO( identitySave ) ;
+		Identity identitySave = 
+		    this.iIdentityRepository.save( identityEntity ) ;
 		
-		log.info( "entity: " + identitySave ) ;
-		log.info( "entityDTO: " + identitySaveDTO ) ;
+		IdentityDTO identitySaveDTO = 
+		    this.mapperUtil.identityEntityToIdentityDTO( identitySave ) ;
 		
 		return CompletableFuture.completedFuture( identitySaveDTO ) ;
 		

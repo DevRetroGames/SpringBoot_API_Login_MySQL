@@ -54,7 +54,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       
     } else {
       log.warn( "Token not valid." ) ;
-      // here throw
     }
     
     
@@ -73,14 +72,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         
       } else {
         log.warn( "Invalid JWT token." ) ;
-        // here throw
       }
       
       
       
     } else {
       log.warn( "Username is null or context is not null." ) ;
-      // here throw
     }
     
     

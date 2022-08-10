@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -27,20 +28,21 @@ public class JwtHelper {
   private static final String ISSUER = "CREDENTIALS" ;
   private static final String BEARER = "Bearer " ;
   
-  private static final long EXPIRED = 3600000 ;
-  private static final String SECRET = "secret" ;
+  @Value( "${jwt.expired}" )
+  private long jwtExpired ;
+  
+  @Value( "${jwt.secret}" )
+  private String jwtSecret ;
   
   
   
   public String generateToken( UserDetails userDetails ) {
     
-    List< String > roles = new ArrayList< String >() ; 
+    List< String > roles = new ArrayList<>() ; 
     userDetails
       .getAuthorities()
       .stream()
-      .forEach( role -> { 
-          roles.add( role.getAuthority() ) ;
-        })
+      .forEach( role -> roles.add( role.getAuthority() ) )
       ;
     
     return JWT
@@ -48,10 +50,10 @@ public class JwtHelper {
         .withIssuer( ISSUER )
         .withIssuedAt( new Date() )
         .withNotBefore( new Date() )
-        .withExpiresAt( new Date( System.currentTimeMillis() + EXPIRED ) )
+        .withExpiresAt( new Date( System.currentTimeMillis() + this.jwtExpired ) )
         .withClaim( USER , userDetails.getUsername() )
         .withArrayClaim( ROLES , roles.toArray( new String[0] ) )
-        .sign( Algorithm.HMAC512( SECRET ) )
+        .sign( Algorithm.HMAC512( this.jwtSecret ) )
         ;
     
   }
@@ -137,7 +139,7 @@ public class JwtHelper {
   private DecodedJWT verify( String token ) {
     
     return JWT
-        .require( Algorithm.HMAC512( SECRET ) )
+        .require( Algorithm.HMAC512( this.jwtSecret ) )
         .withIssuer( ISSUER )
         .build()
         .verify( token.substring( BEARER.length() ) )

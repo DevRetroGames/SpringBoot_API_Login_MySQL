@@ -43,7 +43,7 @@ public class AuthController {
   @PostMapping( "/login" )
   @ResponseStatus( HttpStatus.OK )
   public JwtAuthResponse createRole( 
-      @Valid @RequestBody JwtAuthRequest request ) throws Exception {
+      @Valid @RequestBody JwtAuthRequest request ) {
     
      Authentication auth ;
      String token = null ;

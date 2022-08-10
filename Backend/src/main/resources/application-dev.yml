@@ -45,6 +45,18 @@ spring:
 cors:
   host: ${cor.host}
   
+jwt:
+  expired: ${e-jwt.expired}
+  secret: ${e-jwt.secret}
+  roles: 
+    full: dev_admin,admin
+    onlyRead: grocer
+    onlyInsert: grocer
+    onlyUpdate: grocer
+    readInsert: secretary,grocer
+    readUpdate: grocer
+    insertUpdate: grocer
+  
 image:
   format: .jpg
   type: image/jpeg

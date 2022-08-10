@@ -15,11 +15,15 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.api.credenciales.security.JwtAuthenticationFilter;
+import com.api.credenciales.security.JwtRoles;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
   
+  
+  @Autowired
+  private JwtRoles jwtRoles ;
   
   @Autowired
   private AuthenticationEntryPoint authenticationEntryPoint ;
@@ -56,13 +60,17 @@ public class SecurityConfig {
     
     http
       .authorizeRequests()
+      
       .antMatchers( "/swagger-ui/**" ).permitAll()
       .antMatchers( "/v3/**" ).permitAll()
-      .antMatchers( "/api/auth/**" ).permitAll()    
-      .antMatchers( "/api/role/**" ).hasRole( "dev_admin" )
-      .antMatchers( "/api/information/**" ).hasRole( "dev_admin" )
-      .antMatchers( "/api/identity/**" ).hasRole( "dev_admin" )
-      .antMatchers( "/api/image/**" ).hasRole( "dev_admin" )
+      
+      .antMatchers( "/api/auth/**" ).permitAll()   
+      
+      .antMatchers( "/api/role/**" ).hasAnyRole( jwtRoles.getJwtRolesFull() )
+      .antMatchers( "/api/information/**" ).hasAnyRole( jwtRoles.getJwtRolesFull() )
+      .antMatchers( "/api/identity/**" ).hasAnyRole( jwtRoles.getJwtRolesFull() )
+      .antMatchers( "/api/image/**" ).hasAnyRole( jwtRoles.getJwtRolesFull() )
+      
       .anyRequest()
       .authenticated()
       ;

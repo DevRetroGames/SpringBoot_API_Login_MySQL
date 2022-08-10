@@ -3,7 +3,6 @@ package com.api.credenciales.model;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -82,16 +81,13 @@ public class Identity implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     
-    List< SimpleGrantedAuthority > authorities = 
-        this.getListRoles()
-            .stream()
-            .map( ( role ) -> 
-                new SimpleGrantedAuthority( "ROLE_" + role.getName() ) 
-              )
-            .collect( Collectors.toList() )
-            ;
-    
-    return authorities ;
+    return this.getListRoles()
+               .stream()
+               .map( role -> 
+                  new SimpleGrantedAuthority( "ROLE_" + role.getName() ) 
+                )
+               .collect( Collectors.toList() )
+               ;
     
   }
   

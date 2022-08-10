@@ -6,9 +6,6 @@ CREATE TABLE IF NOT EXISTS CREDENTIALS.IDENTITYS (
     -- fk of information table
     information_id VARCHAR( 36 ) ,
 
-    -- fk of roles table
-    -- role_id VARCHAR( 36 ) ,
-
     -- access credentials
     keyword VARCHAR( 255 ) NOT NULL ,
 

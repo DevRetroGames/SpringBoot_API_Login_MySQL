@@ -36,6 +36,7 @@ public class FindAll {
 	private MapperUtil mapperUtil ;
 	
 	
+	
 	@Async( "asyncExecutor" )
 	public CompletableFuture< Page< RoleDTO > > getAllRoles( PageRequest pageRequest ) {
 		
@@ -75,7 +76,8 @@ public class FindAll {
 					.findAll()
 					.stream()
 					.map( this.mapperUtil::identityEntityToIdentityDTO )
-					.collect( Collectors.toList() ) ;
+					.collect( Collectors.toList() ) 
+					;
 		
 		return CompletableFuture.completedFuture( new PageImpl<>( listIndetitysDTO ) ) ;
 		
