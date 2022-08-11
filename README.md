@@ -22,6 +22,7 @@ Para el modelado de negocio se utilizo Archi.
 
 ### Backend.
 1. Spring boot.
+    1. Desarrollo completado.
 
 ### Frontend.
 1. Angular 13.
@@ -37,9 +38,3 @@ Para el modelado de negocio se utilizo Archi.
 
 ### Diagramas UML.
 1. Dia.
-
-### Pendientes.
-1. Realizar los tests.
-    1. JUnit 5.
-    2. Mockito.
-    3. SonarQube.

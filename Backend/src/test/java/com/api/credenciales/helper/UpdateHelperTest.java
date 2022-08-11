@@ -1,10 +1,12 @@
-package com.api.credenciales.util;
+package com.api.credenciales.helper;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.api.credenciales.dto.IdentityDTO;
 import com.api.credenciales.dto.InformationDTO;
@@ -22,37 +24,52 @@ import com.api.credenciales.dto.RoleDTO;
 import com.api.credenciales.model.Identity;
 import com.api.credenciales.model.Information;
 import com.api.credenciales.model.Role;
+import com.api.credenciales.repository.IIdentityRepository;
+import com.api.credenciales.repository.IInformationRepository;
+import com.api.credenciales.repository.IRoleRepository;
+import com.api.credenciales.util.MapperUtil;
 
 @ExtendWith(MockitoExtension.class)
-class MapperUtilTest {
-  
+class UpdateHelperTest {
   
   @Mock
-  private ModelMapper modelMapper;
+  private IIdentityRepository iIdentityRepository;
+
+  @Mock
+  private IInformationRepository iInformationRepository;
+
+  @Mock
+  private IRoleRepository iRoleRepository;
+
+  @Mock
+  private MapperUtil mapperUtil;
+
+  @Mock
+  private PasswordEncoder passwordEncoder;
   
   @InjectMocks
-  private MapperUtil mapperUtil;
+  private UpdateHelper updateHelper;
   
   // ----------------------------------------------------------------------
   
-  private Role role ;
+  private Role role ; 
   private RoleDTO roleDTO ;
   
-  private Information information ;
+  private Information information ; 
   private InformationDTO informationDTO ;
   
-  private Identity identity ;
-  private IdentityDTO identityDTO ;
+  private Identity identity ; 
+  private IdentityDTO identityDTO ; 
   
   private Set< Role > listRole = new HashSet< Role >() ;
-  private Set< RoleDTO > listRoleDTO = new HashSet< RoleDTO >() ;
+  private List< RoleDTO > listRoleDTO = new ArrayList< RoleDTO >() ;
   
   // ----------------------------------------------------------------------
-
+  
   @BeforeEach
   protected void setUp() throws Exception {
     
-    this.mapperUtil = Mockito.mock( MapperUtil.class ) ;
+    this.updateHelper = Mockito.mock( UpdateHelper.class ) ;
     
     // -------------------------
     
@@ -106,10 +123,10 @@ class MapperUtilTest {
     
     this.listRoleDTO.add( this.roleDTO ) ;
     
-    this.identityDTO.setListRoles( new ArrayList<>( this.listRoleDTO ) ) ;
+    this.identityDTO.setListRoles( this.listRoleDTO ) ;
     
   }
-
+  
   @AfterEach
   protected void tearDown() throws Exception {
   }
@@ -117,65 +134,39 @@ class MapperUtilTest {
   // ----------------------------------------------------------------------
   
   @Test
-  void testRoleEntityToRoleDTO() {
+  void testUpdateRole() {
     
     Mockito
-      .when( this.mapperUtil.roleEntityToRoleDTO( this.role ) )
-      .thenReturn( roleDTO ) 
+      .when( this.updateHelper.updateRole( this.role , this.roleDTO ) )
+      .thenReturn( CompletableFuture.completedFuture( new RoleDTO() ) ) 
       ;
     
-    RoleDTO roleDTOTest = this.mapperUtil.roleEntityToRoleDTO( this.role ) ;
+    CompletableFuture< RoleDTO > completableFutureRoleDTOTest = 
+        this.updateHelper.updateRole( this.role , this.roleDTO ) ;
     
-    // name equals
+    RoleDTO roleDTOTest = completableFutureRoleDTOTest.join() ;
+    
     assertEquals( this.roleDTO.getName() , roleDTOTest.getName() ) ;
     
-    // status equals
     assertEquals( this.roleDTO.isStatus() , roleDTOTest.isStatus() ) ;
     
-    // dto equals
-    assertEquals( this.roleDTO , roleDTOTest ) ;
-    
   }
-  
   
   // ----------------------------------------------------------------------
   
-  
   @Test
-  void testRoleDTOToRoleEntity() {
+  void testUpdateInformation() {
     
     Mockito
-      .when( this.mapperUtil.roleDTOToRoleEntity( this.roleDTO ) )
-      .thenReturn( this.role ) 
+      .when( this.updateHelper.updateInformation( this.information , this.informationDTO ) )
+      .thenReturn( CompletableFuture.completedFuture( new InformationDTO() ) ) 
       ;
     
-    Role roleTest = this.mapperUtil.roleDTOToRoleEntity( this.roleDTO ) ;
+    CompletableFuture< InformationDTO > completableFutureInformationDTOTest = 
+        this.updateHelper.updateInformation( this.information , this.informationDTO ) ;
     
-    // name equals
-    assertEquals( this.role.getName() , roleTest.getName() ) ;
     
-    // status equals
-    assertEquals( this.role.isStatus() , roleTest.isStatus() ) ;
-    
-    // dto equals
-    assertEquals( this.role , roleTest ) ;
-    
-  }
-  
-  
-  // ----------------------------------------------------------------------
-  
-  
-  @Test
-  void testInformationEntityToInformationDTO() {
-    
-    Mockito
-      .when( this.mapperUtil.informationEntityToInformationDTO( this.information ) )
-      .thenReturn( this.informationDTO ) 
-      ;
-    
-    InformationDTO informationDTOTest = 
-        this.mapperUtil.informationEntityToInformationDTO( this.information ) ;
+    InformationDTO informationDTOTest = completableFutureInformationDTOTest.join() ;
     
     
     assertEquals( this.informationDTO.getName() , informationDTOTest.getName() ) ;
@@ -198,93 +189,31 @@ class MapperUtilTest {
     
   }
   
-  
   // ----------------------------------------------------------------------
   
-  
   @Test
-  void testInformationDTOToInformationEntity() {
+  void testUpdateIdentity() {
     
     Mockito
-      .when( this.mapperUtil.informationDTOToInformationEntity( this.informationDTO ) )
-      .thenReturn( this.information ) 
+      .when( this.updateHelper.updateIdentity( identity , identityDTO , listRoleDTO ) )
+      .thenReturn( CompletableFuture.completedFuture( new IdentityDTO() ) ) 
       ;
     
-    Information informationTest = 
-        this.mapperUtil.informationDTOToInformationEntity( this.informationDTO ) ;
+    CompletableFuture< IdentityDTO > completableFutureIdentityDTOTest = 
+        this.updateHelper.updateIdentity( identity , identityDTO , listRoleDTO ) ;
     
     
-    assertEquals( this.information.getName() , informationTest.getName() ) ;
+    IdentityDTO IdentityDTOTest = completableFutureIdentityDTOTest.join() ;
     
-    assertEquals( this.information.getLastName() , informationTest.getLastName() ) ;
     
-    assertEquals( this.information.getAge() , informationTest.getAge() ) ;
+    assertEquals( this.identityDTO.getInformation() , IdentityDTOTest.getInformation() ) ;
     
-    assertEquals( this.information.getCellPhonoNumber() , informationTest.getCellPhonoNumber() ) ;
+    assertEquals( this.identityDTO.getKeyword() , IdentityDTOTest.getKeyword() ) ;
     
-    assertEquals( this.information.getEmail() , informationTest.getEmail() ) ;
+    assertEquals( this.identityDTO.getListRoles() , IdentityDTOTest.getListRoles() ) ;
     
-    assertEquals( this.information.getDni() , informationTest.getDni() ) ;
-    
-    assertEquals( this.information.getCountry() , informationTest.getCountry() ) ;
-    
-    assertEquals( this.information.getCity() , informationTest.getCity() ) ;
-    
-    assertEquals( this.information.isImage() , informationTest.isImage() ) ;
+    assertEquals( this.identityDTO.isStatus() , IdentityDTOTest.isStatus() ) ;
     
   }
-  
-  
-  // ----------------------------------------------------------------------
-  
-  
-  @Test
-  void testIdentityEntityToIdentityDTO() {
-    
-    Mockito
-      .when( this.mapperUtil.identityEntityToIdentityDTO( this.identity ) )
-      .thenReturn( this.identityDTO ) 
-      ;
-    
-    IdentityDTO identityDTOTest = 
-        this.mapperUtil.identityEntityToIdentityDTO( this.identity ) ;
-    
-    
-    assertEquals( this.identityDTO.getInformation() , identityDTOTest.getInformation() ) ;
-    
-    assertEquals( this.identityDTO.getKeyword() , identityDTOTest.getKeyword() ) ;
-    
-    assertEquals( this.identityDTO.getListRoles() , identityDTOTest.getListRoles() ) ;
-    
-    assertEquals( this.identityDTO.isStatus() , identityDTOTest.isStatus() ) ;
-    
-  }
-  
-  
-  // ----------------------------------------------------------------------
-  
-  
-  @Test
-  void testIdentityDTOToIdentityEntity() {
-    
-    Mockito
-      .when( this.mapperUtil.identityDTOToIdentityEntity( this.identityDTO ) )
-      .thenReturn( this.identity ) 
-      ;
-    
-    Identity identityTest = 
-        this.mapperUtil.identityDTOToIdentityEntity( this.identityDTO ) ;
-    
-    
-    assertEquals( this.identity.getInformation() , identityTest.getInformation() ) ;
-    
-    assertEquals( this.identity.getKeyword() , identityTest.getKeyword() ) ;
-    
-    assertEquals( this.identity.getListRoles() , identityTest.getListRoles() ) ;
-    
-    assertEquals( this.identity.isStatus() , identityTest.isStatus() ) ;
-    
-  }
-  
-  
+
 }
