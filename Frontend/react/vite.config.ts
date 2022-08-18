@@ -7,7 +7,14 @@ import { resolve } from 'path'
 export default defineConfig({
   resolve: {
     alias: {
-      '@assets' : resolve( __dirname , 'src/assets' )
+      '@apis' : resolve( __dirname , 'apis' ) ,
+      '@assets' : resolve( __dirname , 'src/assets' ) ,
+      '@components' : resolve( __dirname , 'src/components' ) ,
+      '@contexts' : resolve( __dirname , 'src/contexts' ) ,
+      '@hooks' : resolve( __dirname , 'src/hooks' ) ,
+      '@pages' : resolve( __dirname , 'src/pages' ) ,
+      '@services' : resolve( __dirname , 'src/services' ) ,
+      '@utils' : resolve( __dirname , 'src/utils' )
     }
   },
   plugins: [

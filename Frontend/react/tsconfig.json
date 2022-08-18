@@ -17,7 +17,14 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
-      "@assets/*": ["assets/*"]
+      "@apis/*": ["apis/*"] ,
+      "@assets/*": ["src/assets/*"] ,
+      "@components/*": ["src/components/*"] ,
+      "@contexts/*": ["src/contexts/*"] ,
+      "@hooks/*": ["src/hooks/*"] ,
+      "@pages/*": ["src/pages/*"] ,
+      "@services/*": ["src/services/*"] ,
+      "@utils/*": ["src/utils/*"]
     }
   },
   "include": ["src"],
