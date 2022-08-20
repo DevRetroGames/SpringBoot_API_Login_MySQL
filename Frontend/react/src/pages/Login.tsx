@@ -1,44 +1,27 @@
-import { 
-  Box , 
-  Container , 
-  CssBaseline 
+import {
+  createTheme ,
+  CssBaseline , 
+  Grid ,
+  ThemeProvider
 } from '@mui/material'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-import SignIn from '@components/SignIn/SignIn'
-import InputSignIn from '@components/InputSignIn/InputSignIn'
-import CButton from '@components/CButton/CButton'
-import ForgotPassword from '@components/ForgotPassword/ForgotPassword'
+import LoginSideLogo from '@components/LoginSideLogo'
+import LoginForm from '@components/LoginForm'
 
-const theme = createTheme();
-
-const boxMain = {
-  marginTop: 8 , 
-  display: 'flex' , 
-  flexDirection: 'column' , 
-  alignItems: 'center'
-}
+const theme = createTheme()
 
 export default function LoginPage() {
 
   return (
-    <ThemeProvider theme={ theme }>
-      <Container component="main" maxWidth="xs">
+    <ThemeProvider theme={ theme } >
+      <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
 
-        <Box sx = { boxMain } >
+        <LoginSideLogo />
 
-          <SignIn />
+        <LoginForm />
 
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <InputSignIn />
-            <CButton />
-            <ForgotPassword />
-          </Box>
-
-        </Box>
-
-      </Container>
+      </Grid>
     </ThemeProvider>
   );
 }

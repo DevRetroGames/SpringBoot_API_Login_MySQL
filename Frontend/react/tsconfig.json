@@ -21,6 +21,7 @@
       "@assets/*": ["src/assets/*"] ,
       "@components/*": ["src/components/*"] ,
       "@contexts/*": ["src/contexts/*"] ,
+      "@helper/*": ["src/helper/*"] ,
       "@hooks/*": ["src/hooks/*"] ,
       "@pages/*": ["src/pages/*"] ,
       "@services/*": ["src/services/*"] ,

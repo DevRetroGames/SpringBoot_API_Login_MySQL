@@ -1,0 +1,1 @@
+const role = process.env.HOST + ':' + process.env.PORT + '/' + process.env.ROLE
