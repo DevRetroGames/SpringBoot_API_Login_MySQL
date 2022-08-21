@@ -7,6 +7,7 @@ import { resolve } from 'path'
 export default defineConfig({
   resolve: {
     alias: {
+      '@environments' : resolve( __dirname , 'environments' ) ,
       '@apis' : resolve( __dirname , 'apis' ) ,
       '@assets' : resolve( __dirname , 'src/assets' ) ,
       '@components' : resolve( __dirname , 'src/components' ) ,

@@ -1,0 +1,1 @@
+export const Title = import.meta.env.VITE_APP_TITLE

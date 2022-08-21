@@ -1,11 +1,11 @@
 import Header from '@components/Header'
-
-import useDashboard from '@contexts/useDashboard'
+import Sidebar from '@components/Sidebar'
 
 export default function Dashboard() {
   return(
-    <useDashboard.Provider value='dashboard context'>
-      <Header />
-    </useDashboard.Provider>
+    <>
+    <Header />
+    <Sidebar />
+    </>
   ) ;
 }
