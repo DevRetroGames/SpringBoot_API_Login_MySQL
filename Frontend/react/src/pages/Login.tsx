@@ -5,8 +5,8 @@ import {
   ThemeProvider
 } from '@mui/material'
 
-import LoginSideLogo from '@components/LoginSideLogo'
-import LoginForm from '@components/LoginForm'
+import LoginSideLogo from '@components/Login/LoginSideLogo'
+import LoginForm from '@components/Login/LoginForm'
 
 const theme = createTheme()
 

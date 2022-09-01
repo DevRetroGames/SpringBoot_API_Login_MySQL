@@ -1,8 +1,8 @@
 import { Box , Grid , Paper } from '@mui/material'
 
-import LoginTitle from '@components/LoginTitle'
-import LoginTextField from '@components/LoginTextField'
-import LoginButton from '@components/LoginButton'
+import LoginTitle from '@components/Login/LoginTitle'
+import LoginTextField from '@components/Login/LoginTextField'
+import LoginButton from '@components/Login/LoginButton'
 
 import { boxMain , inputUser , inputPwd } from '@utils/LoginFormUtil'
 

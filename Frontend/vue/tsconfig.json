@@ -11,7 +11,21 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "skipLibCheck": true
+    "skipLibCheck": true ,
+    "baseUrl": "./",
+    "paths": {
+      "@environments/*": ["environments/*"] ,
+      "@apis/*": ["apis/*"] ,
+      "@assets/*": ["src/assets/*"] ,
+      "@components/*": ["src/components/*"] ,
+      "@contexts/*": ["src/contexts/*"] ,
+      "@helpers/*": ["src/helpers/*"] ,
+      "@hooks/*": ["src/hooks/*"] ,
+      "@pages/*": ["src/pages/*"] ,
+      "@routers/*": ["src/routers/*"] ,
+      "@services/*": ["src/services/*"] ,
+      "@utils/*": ["src/utils/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -16,12 +16,21 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2017",
+    "target": "es2020",
     "module": "es2020",
     "lib": [
-      "es2020",
-      "dom"
-    ]
+      "es2020" ,
+      "dom" ,
+      "dom.Iterable"
+    ],
+    "paths": {
+      "@apis/*": ["src/apis/*"] ,
+      "@app/*": ["src/app/*"] ,
+      "@assets/*": ["src/assets/*"] ,
+      "@components/*": ["src/components/*"] ,
+      "@environments/*": ["src/environments/*"] ,
+      "@modules/*": ["src/modules/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
