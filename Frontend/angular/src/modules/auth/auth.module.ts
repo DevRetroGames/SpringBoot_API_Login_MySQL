@@ -18,7 +18,7 @@ import { LoginInputComponent } from './components/login-input/login-input.compon
   ],
   imports: [
     CommonModule ,
-    AuthRoutingModule ,
+    AuthRoutingModule ,    
     FormsModule ,
     ReactiveFormsModule
   ]

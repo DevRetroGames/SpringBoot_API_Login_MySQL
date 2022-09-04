@@ -19,9 +19,8 @@
     "target": "es2020",
     "module": "es2020",
     "lib": [
-      "es2020" ,
-      "dom" ,
-      "dom.Iterable"
+      "es2020",
+      "dom"
     ],
     "paths": {
       "@apis/*": ["src/apis/*"] ,
@@ -30,7 +29,9 @@
       "@components/*": ["src/components/*"] ,
       "@environments/*": ["src/environments/*"] ,
       "@modules/*": ["src/modules/*"]
-    }
+    } ,    
+    "types":[ "node" ] ,
+    "typeRoots":[ "./node_modules/@types" ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import com.api.credenciales.security.JwtAuthenticationFilter;
 import com.api.credenciales.security.JwtRoles;
@@ -59,6 +60,11 @@ public class SecurityConfig {
       ;
     
     http
+      .cors()
+      .configurationSource( request -> new CorsConfiguration().applyPermitDefaultValues() )
+      ;
+    
+    http
       .authorizeRequests()
       
       .antMatchers( "/swagger-ui/**" ).permitAll()
@@ -95,3 +101,37 @@ public class SecurityConfig {
   
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
