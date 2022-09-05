@@ -1,6 +1,5 @@
 import { environment as env } from '@environments/environment'
-
-const axios = require( 'axios' ).default ;
+import axios from 'axios'
 
 const api = env.api + env.auth ;
 
@@ -8,14 +7,11 @@ const api = env.api + env.auth ;
 export const Token = async( username: string , password: string ) => {
 
   try {
-
-    const token = await axios.post( api + '/login' , {
-      username ,
-      password
-    } ) ;
-
+    const response = await axios.post( api + '/login' , { username , password } ) ;
+    return response.data.token ;
   } catch( err ) {
     console.log( err ) ;
+    return 'error' ;
   }
 
 }
