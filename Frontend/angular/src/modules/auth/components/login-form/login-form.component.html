@@ -1,22 +1,41 @@
-<div class="login d-flex align-items-center py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9 col-lg-8 mx-auto">
-        
-        <i class="fa-solid fa-lock"></i>
-        <h3 class="login-heading mb-4">Sign in</h3>
+<div class="example-container">
+  <form [formGroup]="loginForm" >
 
-        <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Email Address</mat-label>
+      <input 
+        matInput 
+        placeholder="Email Address*" 
+        formControlName="username"
+        autocomplete="off"
+        type="email"
+      >
+    </mat-form-field>
+    <app-input-error-container [formControll]="usernameControll" >
+      <app-input-error-msg formErrorCode="required" ></app-input-error-msg>
+      <app-input-error-msg formErrorCode="email" ></app-input-error-msg>
+    </app-input-error-container>
 
-          <app-login-input [data]='inputUser'></app-login-input>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input 
+        matInput 
+        placeholder="Password*" 
+        formControlName="password"
+        autocomplete="off"
+        type="password"
+      >
+    </mat-form-field>
+    <app-input-error-container [formControll]="passwordControll" >
+      <app-input-error-msg formErrorCode="required" ></app-input-error-msg>
+    </app-input-error-container>
 
-          <app-login-input [data]='inputPass'></app-login-input>
+    <button 
+      mat-raised-button 
+      color="primary"
+      (click)="login()"
+      [disabled]="loginForm.invalid"
+    >SIGN IN</button>
 
-          <app-login-button></app-login-button>
-
-        </form>
-
-      </div>
-    </div>
-  </div>
+  </form>
 </div>

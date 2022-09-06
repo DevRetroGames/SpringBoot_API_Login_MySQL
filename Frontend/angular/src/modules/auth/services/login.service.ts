@@ -7,7 +7,15 @@ import { Token } from '@apis/token'
 })
 export class LoginService {
 
-  constructor() { }
+  token: string ;
 
+  constructor() {
+    this.token = '' ;
+  }
+
+  async login( username: string , password: string ) {
+    this.token = await Token( username , password ) ;
+    console.log( 'token: ' , this.token ) ;
+  }
 
 }

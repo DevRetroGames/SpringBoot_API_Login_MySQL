@@ -6,21 +6,33 @@ import { AuthRoutingModule } from './auth-routing.module';
 
 import { LoginComponent } from '@modules/auth/pages/login/login.component'
 import { LoginFormComponent } from './components/login-form/login-form.component'
-import { LoginButtonComponent } from './components/login-button/login-button.component'
-import { LoginInputComponent } from './components/login-input/login-input.component'
+
+import { InputErrorContainerComponent } from '@components/input-error-container/input-error-container.component'
+import { InputErrorMsgComponent } from '@components/input-error-msg/input-error-msg.component'
+
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
+import { MatGridListModule } from '@angular/material/grid-list'
 
 @NgModule({
   declarations: [
     LoginComponent ,
     LoginFormComponent ,
-    LoginButtonComponent ,
-    LoginInputComponent
+    InputErrorContainerComponent ,
+    InputErrorMsgComponent
   ],
   imports: [
     CommonModule ,
     AuthRoutingModule ,    
     FormsModule ,
-    ReactiveFormsModule
+    ReactiveFormsModule ,
+    MatFormFieldModule ,
+    MatInputModule , 
+    MatButtonModule ,
+    MatCardModule ,
+    MatGridListModule
   ]
 })
 export class AuthModule { }

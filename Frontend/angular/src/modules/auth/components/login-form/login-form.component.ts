@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { LoginService } from '@modules/auth/services/login.service'
 
 @Component({
   selector: 'app-login-form',
@@ -7,25 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginFormComponent implements OnInit {
 
-  inputUser = {
-    class : 'form-control' ,
-    type : 'email' ,
-    id : 'user' ,
-    placeholder : 'Email Address*' ,
-    label : 'Email Address*'
+  data = {
+    label: 'Email Address' ,
+    placeholder: 'Email Address*' ,
+    name: 'username'
   }
 
-  inputPass = {
-    class : 'form-control' ,
-    type : 'password' ,
-    id : 'pwd' ,
-    placeholder : 'Password*' ,
-    label : 'Password*'
+  loginForm = new FormGroup({
+    username: new FormControl( '' , [ Validators.required , Validators.email ] ) ,
+    password: new FormControl( '' , [ Validators.required ] )
+  });
+
+  get usernameControll(): FormControl {
+    return this.loginForm.get( 'username' ) as FormControl ;
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  get passwordControll(): FormControl {
+    return this.loginForm.get( 'password' ) as FormControl ;
   }
+
+  constructor( private _service: LoginService ) {}
+
+  login() {
+    const credentials = this.loginForm.value ;
+    this._service.login( credentials.username! , credentials.password! ) ;
+  }
+
+  ngOnInit(): void {}
+
 
 }
