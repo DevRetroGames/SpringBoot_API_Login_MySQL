@@ -23,7 +23,7 @@ import com.api.credenciales.security.JwtAuthResponse;
 import com.api.credenciales.service.IJwtService;
 
 @RestController
-@RequestMapping( "/api/auth" )
+@RequestMapping( value = "/api/auth" , produces = { "application/json" } )
 public class AuthController {
   
   
